@@ -162,54 +162,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e35a8eb092735c4897b8707ef6017aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZQSD:
-    m_Name: ZQSD
+  WASD:
+    m_Name: WASD
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 42d057e8-e655-4eec-8f62-7ab4168c052f
+    m_Id: 9019be0f-5efc-4cf8-9de5-835160702fb4
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: Movement
-      m_Id: 5aa0a276-b01c-4477-8774-f98b44f81788
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: ZQSD
-      m_Flags: 4
-    - m_Name: up
-      m_Id: ebe3d494-809b-4dd2-a281-90a7dfeda979
-      m_Path: <Keyboard>/z
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: ZQSD
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 68285ae2-4ec9-4c8a-99f8-a92b4f28c047
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: ZQSD
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 97c94d6d-bcff-4dec-95fa-fd197b0515dd
-      m_Path: <Keyboard>/q
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: ZQSD
-      m_Flags: 8
-    - m_Name: right
-      m_Id: 9524fcfb-f0a6-412d-8b84-c1b44e0d8054
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: ZQSD
-      m_Flags: 8
+    m_SingletonActionBindings: []
     m_Flags: 0
   movementSpeed: 5
 --- !u!95 &7018325588081099161
@@ -243,7 +203,7 @@ GameObject:
   - component: {fileID: 2349362480240141236}
   - component: {fileID: 2425607228262653600}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,7 +267,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 1741093335, guid: 74efde7f2980adb488c3e8b200ebe704, type: 3}
-  m_Color: {r: 1, g: 0.6273585, b: 0.9122803, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
