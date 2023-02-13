@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AU_Playercontroller : MonoBehaviour
+public class AU_PlayerController : MonoBehaviour
 {
     //Components
     Rigidbody myRB;
     Transform myAvatar;
+    Animator myAnim;
     //Player movement
-    [SerializeField] InputAction ZQSD;
+    [SerializeField] InputAction WASD;
     Vector2 movementInput;
     [SerializeField] float movementSpeed;
 
 
     private void OnEnable()
     {
-        ZQSD.Enable();
+        WASD.Enable();
 
     }
 
     private void OnDisable()
     {
-        ZQSD.Disable();
+        WASD.Disable();
 
     }
 
@@ -34,17 +35,20 @@ public class AU_Playercontroller : MonoBehaviour
 
         myAvatar = transform.GetChild(0);
 
+        myAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        movementInput = ZQSD.ReadValue<Vector2>();
+        movementInput = WASD.ReadValue<Vector2>();
 
         if (movementInput.x != 0)
         {
             myAvatar.localScale = new Vector2(Mathf.Sign(movementInput.x), 1);
         }
+
+        myAnim.SetFloat("Speed", movementInput.magnitude);
     }
 
     private void FixedUpdate()
