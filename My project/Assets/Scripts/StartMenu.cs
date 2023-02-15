@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// how to import stylesheet from another file
-// https://stackoverflow.com/questions/1000000/how-to-import-stylesheet-from-another-file
-
 
 public class StartMenu : MonoBehaviour
 {
