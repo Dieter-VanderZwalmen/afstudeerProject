@@ -875,6 +875,14 @@ PrefabInstance:
       propertyPath: isImposter
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_Id
+      value: 76f898d6-4ba7-4e80-accc-b7d1851787de
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_Name
+      value: REPORT
+      objectReference: {fileID: 0}
     - target: {fileID: 2425607228262653600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -1209,6 +1217,14 @@ PrefabInstance:
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: isImposter
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_Id
+      value: 3307eec3-aaf3-4e52-862c-fc6323a33865
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_Name
+      value: REPORT
       objectReference: {fileID: 0}
     - target: {fileID: 2425607228262653600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_Color.b
@@ -1557,6 +1573,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_Id
+      value: 683a9774-3643-4c57-8f7f-4291e547965d
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_Name
+      value: REPORT
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_SingletonActionBindings.Array.data[0].m_Id
+      value: fe9fcb75-9e49-477e-bacd-da4723e198cd
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Keyboard>/r
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: REPORT.m_SingletonActionBindings.Array.data[0].m_Action
+      value: REPORT
+      objectReference: {fileID: 0}
     - target: {fileID: 4984036236691520117, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_RootOrder
       value: 1
