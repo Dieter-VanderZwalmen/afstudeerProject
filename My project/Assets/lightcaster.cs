@@ -55,7 +55,11 @@ public class lightcaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetWalls();
+
+
+        try //try to get the scene objects.
+        {
+             GetWalls();
         mesh.Clear(); //clears the mesh before changing it.
         // The next few lines create an array to store all vertices of all the scene objects that should react to the light.
         Vector3[] objverts = sceneObjects[0].gameObject.GetComponent<MeshFilter>().mesh.vertices;
@@ -128,6 +132,12 @@ public class lightcaster : MonoBehaviour
         }
         //triangles = AddItemsToArray(triangles, 0, 1, 2);
         mesh.triangles = triangles; //update the actual mesh with the new triangles.
+        }
+        catch (Exception e) //if it fails, print the error.
+        {
+            //Debug.Log(e);
+        }
+       
       }
     void GetWalls()
     {
