@@ -183,7 +183,7 @@ public class AU_PlayerController : MonoBehaviour
         isDead = true;
 
         myAnim.SetBool("IsDead", isDead);
-        gameObject.layer = 6;
+        gameObject.layer = 9;
         myCollider.enabled = false;
     }
 
