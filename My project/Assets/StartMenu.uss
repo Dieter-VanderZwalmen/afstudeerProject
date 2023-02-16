@@ -10,18 +10,28 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    border-left-width: 5px;
-    border-right-width: 5px;
-    border-top-width: 5px;
-    border-bottom-width: 5px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
+    height: 30px;
 }
 
-#Label,.Label ,Label{
-    -unity-font-style: bold-and-italic;    
+#Label {
+    -unity-font-style: bold-and-italic;
     font: PixeloidSansBold-GOjpP;
+}
 
+.Label {
+    -unity-font-style: bold-and-italic;
+    font: PixeloidSansBold-GOjpP;
+}
+
+Label {
+    -unity-font-style: bold-and-italic;
+    font: PixeloidSansBold-GOjpP;
 }
