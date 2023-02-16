@@ -42,10 +42,18 @@ public class AU_PlayerController : MonoBehaviour
     [SerializeField] InputAction REPORT;
     [SerializeField] LayerMask ignoreForBody;
 
+    //Interaction
+    [SerializeField] InputAction MOUSE;
+    Vector2 mousePositionInput;
+    Camera myCamera;
+    [SerializeField] InputAction INTERACTION;
+    [SerializeField] LayerMask interactLayer;
+
     private void Awake()
     {
         KILL.performed += KillTarget;
         REPORT.performed += ReportBody;
+        INTERACTION.performed += Interact;
     }
 
      
@@ -55,6 +63,8 @@ public class AU_PlayerController : MonoBehaviour
         WASD.Enable();
         KILL.Enable();
         REPORT.Enable();
+        MOUSE.Enable();
+        INTERACTION.Enable();
     }
 
     private void OnDisable()
@@ -62,6 +72,8 @@ public class AU_PlayerController : MonoBehaviour
         WASD.Disable();
         KILL.Disable();
         REPORT.Disable();
+        MOUSE.Disable();
+        INTERACTION.Disable();
     }
 
 
@@ -106,6 +118,8 @@ public class AU_PlayerController : MonoBehaviour
         {
             BodySearch();
         }
+
+        mousePositionInput = MOUSE.ReadValue<Vector2>();
 
     }
 
@@ -226,4 +240,23 @@ public class AU_PlayerController : MonoBehaviour
         tempBody.GetComponent<AU_Body>().Report();
     }
 
+    void Interact(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            //Debug.Log("Here");
+            RaycastHit hit;
+            Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
+            if (Physics.Raycast(ray, out hit,interactLayer))
+            {
+                if (hit.transform.tag == "Interactable")
+                {
+                    if (!hit.transform.GetChild(0).gameObject.activeInHierarchy)
+                        return;
+                    AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
+                    temp.PlayMiniGame();
+                }
+            }
+        } 
+    }
 }
