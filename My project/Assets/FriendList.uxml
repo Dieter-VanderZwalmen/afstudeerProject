@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/StartMenu.uss?fileID=7433441132597879392&amp;guid=670b1470ed7df4c8b9e4b351e9b7b38d&amp;type=3#StartMenu" />
+    <Style src="project://database/Assets/VotingScreen.uss?fileID=7433441132597879392&amp;guid=97e5e053c8778477fb07224e956709ea&amp;type=3#VotingScreen" />
+    <Style src="project://database/Assets/FriendList.uss?fileID=7433441132597879392&amp;guid=6f8f9eed340654b92a0887d2c29b0b08&amp;type=3#FriendList" />
+    <ui:VisualElement name="VisualElement" style="width: 100%; height: 100%; align-items: center; justify-content: center; background-color: rgb(59, 72, 74);">
+        <ui:VisualElement name="Button" text="Button" />
+        <ui:VisualElement style="width: 60%; height: 80%; align-items: center; justify-content: center; background-color: rgb(138, 143, 157); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
+            <ui:VisualElement style="width: 90%; height: 85%; align-items: center; justify-content: space-between; background-color: rgb(164, 190, 219); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-top: 10px;">
+                <ui:Label text="FRIENDLIST" display-tooltip-when-elided="true" name="Label" style="color: rgb(0, 0, 0); -unity-font-style: bold;" />
+                <ui:VisualElement style="flex-direction: column; width: 100%; height: 100%; padding-left: 25px; padding-right: 25px; padding-top: 15px; padding-bottom: 10px; align-items: center; justify-content: space-between;">
+                    <ui:VisualElement style="width: 50%; align-items: center; flex-direction: column; height: 70%; border-bottom-color: rgb(66, 127, 134); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-bottom: 0; margin-bottom: 2px;">
+                        <ui:Button text="No incoming requests" display-tooltip-when-elided="true" class="friendButton" style="margin-bottom: 5px; width: 150px;" />
+                        <ui:Button text="Add a  friend via code" display-tooltip-when-elided="true" enable-rich-text="true" class="friendButton" style="width: 150px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 130px; height: 80px; align-items: center; justify-content: center;">
+                        <ui:Button text="Among TWA friends" display-tooltip-when-elided="true" class="friends" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
