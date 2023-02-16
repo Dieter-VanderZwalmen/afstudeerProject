@@ -9,6 +9,7 @@ public class AU_PlayerController : MonoBehaviour
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
     
+    
 
     //Components
     Rigidbody myRB;
@@ -19,7 +20,7 @@ public class AU_PlayerController : MonoBehaviour
     Vector2 movementInput;
     [SerializeField] float movementSpeed;
     //Player Color
-    [SerializeField] Color myColor;
+    static Color myColor;
     SpriteRenderer myAvatarSprite;
 
     //Role
@@ -118,7 +119,7 @@ public class AU_PlayerController : MonoBehaviour
         myColor = newColor;
         if (myAvatarSprite != null)
         {
-            myAvatarSprite.color = myColor;
+           myAvatarSprite.color = myColor;
         }
     }
 
