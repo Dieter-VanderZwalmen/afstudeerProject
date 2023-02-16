@@ -8,9 +8,6 @@ public class AU_PlayerController : MonoBehaviour
 {
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
-    
-    
-
     //Components
     Rigidbody myRB;
     Animator myAnim;
@@ -20,7 +17,7 @@ public class AU_PlayerController : MonoBehaviour
     Vector2 movementInput;
     [SerializeField] float movementSpeed;
     //Player Color
-    static Color myColor;
+    [SerializeField] Color myColor;
     SpriteRenderer myAvatarSprite;
 
     //Role
@@ -56,8 +53,6 @@ public class AU_PlayerController : MonoBehaviour
         INTERACTION.performed += Interact;
     }
 
-     
-
     private void OnEnable()
     {
         WASD.Enable();
@@ -84,7 +79,7 @@ public class AU_PlayerController : MonoBehaviour
         {
             localPlayer = this;
         }
-        
+        myCamera = transform.GetChild(1).GetComponent<Camera>();
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
@@ -95,7 +90,7 @@ public class AU_PlayerController : MonoBehaviour
         if (myColor == Color.clear)
             myColor = Color.white;
         myAvatarSprite.color = myColor;
-       
+
         allBodies = new List<Transform>();
 
         bodiesFound = new List<Transform>();
@@ -120,7 +115,6 @@ public class AU_PlayerController : MonoBehaviour
         }
 
         mousePositionInput = MOUSE.ReadValue<Vector2>();
-
     }
 
     private void FixedUpdate()
@@ -133,7 +127,7 @@ public class AU_PlayerController : MonoBehaviour
         myColor = newColor;
         if (myAvatarSprite != null)
         {
-           myAvatarSprite.color = myColor;
+            myAvatarSprite.color = myColor;
         }
     }
 
@@ -153,7 +147,7 @@ public class AU_PlayerController : MonoBehaviour
                     return;
                 else
                 {
-                    targets.Add(tempTarget);                   
+                    targets.Add(tempTarget);
                 }
             }
         }
@@ -221,7 +215,7 @@ public class AU_PlayerController : MonoBehaviour
                     bodiesFound.Add(body.transform);
                 }
                 else
-                {
+                {                   
                     bodiesFound.Remove(body.transform);
                 }
             }
@@ -244,13 +238,14 @@ public class AU_PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            //Debug.Log("Here");
+            Debug.Log("Here");
             RaycastHit hit;
             Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
             if (Physics.Raycast(ray, out hit,interactLayer))
             {
                 if (hit.transform.tag == "Interactable")
                 {
+                    Debug.Log("Here 2");
                     if (!hit.transform.GetChild(0).gameObject.activeInHierarchy)
                         return;
                     AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
