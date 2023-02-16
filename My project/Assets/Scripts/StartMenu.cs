@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 
 public class StartMenu : MonoBehaviour
@@ -20,6 +21,13 @@ public class StartMenu : MonoBehaviour
         SceneManager.LoadScene("HowToPlay");
     }
 
+    public void Settings()
+    {
+        // Handle Settings button click
+        Debug.Log("Settings button clicked");
+        SceneManager.LoadScene("Settings");
+    }
+
     // public void Local(int sceneIndex)
     // {
     //     SceneManager.LoadScene(sceneIndex);
@@ -36,6 +44,21 @@ public class StartMenu : MonoBehaviour
     {
         Debug.Log("Quit button clicked");
         Application.Quit();
+    }
+
+    private void OnEnable()
+    {
+        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+
+        Button buttonHowToPlay = root.Q<Button>("HowToPlay");
+        Button buttonPlay = root.Q<Button>("Play");
+        Button buttonSettings = root.Q<Button>("Settings");
+        Button buttonQuit = root.Q<Button>("Quit");
+
+        buttonHowToPlay.clickable.clicked += () => HowToPlay();
+        buttonPlay.clickable.clicked += () => OnOnlineClick();
+        buttonSettings.clickable.clicked += () => Settings();
+        buttonQuit.clickable.clicked += () =>  Quit();
     }
 
     // public void SoundEnable()
