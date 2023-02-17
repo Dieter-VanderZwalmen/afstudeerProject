@@ -1,0 +1,11 @@
+.box {
+    width: 80%;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.label {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 255);
+    -unity-font-style: bold;
+}

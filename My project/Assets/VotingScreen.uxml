@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/StartMenu.uss?fileID=7433441132597879392&amp;guid=670b1470ed7df4c8b9e4b351e9b7b38d&amp;type=3#StartMenu" />
+    <Style src="project://database/Assets/VotingScreen.uss?fileID=7433441132597879392&amp;guid=97e5e053c8778477fb07224e956709ea&amp;type=3#VotingScreen" />
+    <ui:VisualElement name="VisualElement" style="width: 100%; height: 100%; align-items: center; justify-content: center; background-color: rgba(59, 72, 74, 255);">
+        <ui:VisualElement name="Button" text="Button" />
+        <ui:VisualElement style="width: 60%; height: 80%; align-items: center; justify-content: center; background-color: rgb(138, 143, 157); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
+            <ui:VisualElement style="width: 90%; height: 85%; align-items: center; justify-content: space-between; background-color: rgb(164, 190, 219); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-top: 10px;">
+                <ui:Label text="Wie is de bedrieger?" display-tooltip-when-elided="true" name="Label" style="color: rgb(0, 0, 0); -unity-font-style: bold;" />
+                <ui:VisualElement style="flex-direction: row; width: 100%; height: 100%; padding-left: 25px; padding-right: 25px; padding-top: 15px; padding-bottom: 10px;">
+                    <ui:VisualElement style="width: 50%; align-items: center;">
+                        <ui:VisualElement class="playerBox" style="width: 80%; height: 30%;">
+                            <ui:Label text="Label" display-tooltip-when-elided="true" class="label" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="playerBox">
+                            <ui:Label text="Label" display-tooltip-when-elided="true" class="label" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="playerBox">
+                            <ui:Label text="Label" display-tooltip-when-elided="true" class="label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; align-items: center;">
+                        <ui:VisualElement class="playerBox">
+                            <ui:Label text="Label" display-tooltip-when-elided="true" class="label" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="playerBox">
+                            <ui:Label text="Label" display-tooltip-when-elided="true" class="label" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="playerBox">
+                            <ui:Label text="Label" display-tooltip-when-elided="true" class="label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement style="width: 100%; flex-direction: row; justify-content: space-between; padding-left: 10px; padding-right: 10px; padding-top: 0; padding-bottom: 10px;">
+                    <ui:Button text="Skip vote" display-tooltip-when-elided="true" enable-rich-text="false" style="width: 20%; background-color: rgb(144, 155, 165); font-size: 10px; height: 18px;" />
+                    <ui:Label text="Votings ends in: 20s" display-tooltip-when-elided="true" style="font-size: 10px; color: rgb(0, 0, 0); -unity-font-style: italic;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
