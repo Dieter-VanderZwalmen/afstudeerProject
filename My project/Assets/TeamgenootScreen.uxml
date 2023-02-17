@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/StartMenu.uss?fileID=7433441132597879392&amp;guid=670b1470ed7df4c8b9e4b351e9b7b38d&amp;type=3#StartMenu" />
+    <Style src="project://database/Assets/VotingScreen.uss?fileID=7433441132597879392&amp;guid=97e5e053c8778477fb07224e956709ea&amp;type=3#VotingScreen" />
+    <Style src="project://database/Assets/FriendList.uss?fileID=7433441132597879392&amp;guid=6f8f9eed340654b92a0887d2c29b0b08&amp;type=3#FriendList" />
+    <Style src="project://database/Assets/StartGame.uss?fileID=7433441132597879392&amp;guid=17d725989889f44559e1b0fa93c67aeb&amp;type=3#StartGame" />
+    <ui:VisualElement name="VisualElement" style="width: 100%; height: 100%; align-items: center; justify-content: center; background-color: rgb(59, 72, 74); flex-direction: column;">
+        <ui:Label text="Teamgenoot" display-tooltip-when-elided="true" name="Label" style="margin-bottom: 10px; font-size: 40px; color: rgb(255, 255, 255); -unity-font-style: normal; -unity-font-definition: url(&apos;project://database/Assets/PixeloidSansBold-GOjpP%20SDF%201.asset?fileID=11400000&amp;guid=8b726ab31c8e4407ca129d5352035ae9&amp;type=2#PixeloidSansBold-GOjpP SDF 1&apos;);" />
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:Label text="Er is  " display-tooltip-when-elided="true" style="padding-bottom: 15px; -unity-font-definition: url(&apos;project://database/Assets/PixeloidSansBold-GOjpP%20SDF%201.asset?fileID=11400000&amp;guid=8b726ab31c8e4407ca129d5352035ae9&amp;type=2#PixeloidSansBold-GOjpP SDF 1&apos;); -unity-font-style: normal; color: rgb(255, 255, 255);" />
+            <ui:Label text=" 1 bedrieger" display-tooltip-when-elided="true" style="-unity-font-definition: url(&apos;project://database/Assets/PixeloidSansBold-GOjpP%20SDF%201.asset?fileID=11400000&amp;guid=8b726ab31c8e4407ca129d5352035ae9&amp;type=2#PixeloidSansBold-GOjpP SDF 1&apos;); -unity-font-style: normal; color: rgb(237, 29, 37);" />
+            <ui:Label text=" in among TWA" display-tooltip-when-elided="true" style="-unity-font-definition: url(&apos;project://database/Assets/PixeloidSansBold-GOjpP%20SDF%201.asset?fileID=11400000&amp;guid=8b726ab31c8e4407ca129d5352035ae9&amp;type=2#PixeloidSansBold-GOjpP SDF 1&apos;); -unity-font-style: normal; color: rgb(255, 255, 255);" />
+        </ui:VisualElement>
+        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/among-us-lime-egg-hat-png-01.png?fileID=2800000&amp;guid=4ffb3a8c5497c4cb681d8ecd5caf7009&amp;type=3#among-us-lime-egg-hat-png-01&apos;); width: 140px; height: 200px;" />
+    </ui:VisualElement>
+</ui:UXML>
