@@ -17,7 +17,7 @@ public class AU_PlayerController : MonoBehaviour
     Vector2 movementInput;
     [SerializeField] float movementSpeed;
     //Player Color
-    [SerializeField] Color myColor;
+    static Color myColor;
     SpriteRenderer myAvatarSprite;
 
     //Role
