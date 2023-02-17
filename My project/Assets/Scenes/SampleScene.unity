@@ -4713,6 +4713,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: MOUSE.m_Id
+      value: 607f2178-b094-4364-88ab-3b9a25bab999
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: hasControl
       value: 0
       objectReference: {fileID: 0}
@@ -4725,8 +4729,16 @@ PrefabInstance:
       value: 76f898d6-4ba7-4e80-accc-b7d1851787de
       objectReference: {fileID: 0}
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: MOUSE.m_Name
+      value: MOUSE
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: REPORT.m_Name
       value: REPORT
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: INTERACTION.m_Id
+      value: 998eec9b-1c95-443b-a8f6-6af04551470a
       objectReference: {fileID: 0}
     - target: {fileID: 113010886, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_IsActive
@@ -6533,12 +6545,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: MOUSE.m_Id
+      value: 2ce96598-f25a-45f1-b1da-8d569bb5593f
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: hasControl
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: isImposter
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: MOUSE.m_Name
+      value: MOUSE
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: INTERACTION.m_Id
+      value: b92a63f2-2fbb-4365-8b9e-fbd23d950cb2
       objectReference: {fileID: 0}
     - target: {fileID: 113010886, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_IsActive
@@ -6992,6 +7016,14 @@ PrefabInstance:
       propertyPath: miniGame
       value: 
       objectReference: {fileID: 2126912229}
+    - target: {fileID: 6562329215144914570, guid: 739698cff42540b45ba933826b79525b, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6774162184011312381, guid: 739698cff42540b45ba933826b79525b, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 739698cff42540b45ba933826b79525b, type: 3}
 --- !u!1 &1299296411
@@ -10006,6 +10038,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: MOUSE.m_Id
+      value: b1e3d67e-d3b9-48c0-8ef6-81d8eb850e40
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: hasControl
       value: 0
       objectReference: {fileID: 0}
@@ -10018,8 +10054,16 @@ PrefabInstance:
       value: 3307eec3-aaf3-4e52-862c-fc6323a33865
       objectReference: {fileID: 0}
     - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: MOUSE.m_Name
+      value: MOUSE
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: REPORT.m_Name
       value: REPORT
+      objectReference: {fileID: 0}
+    - target: {fileID: -5921047952930951600, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: INTERACTION.m_Id
+      value: 3499ef8d-46f9-41a0-94e1-316f5115f8a2
       objectReference: {fileID: 0}
     - target: {fileID: 113010886, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_IsActive
