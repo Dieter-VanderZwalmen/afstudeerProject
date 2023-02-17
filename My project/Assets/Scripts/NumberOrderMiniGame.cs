@@ -27,6 +27,7 @@ public class NumberOrderMiniGame : MonoBehaviour
     public void ButtonOrder(int button)
     {
         Debug.Log("Pressed");
+
         if (button == nextButton)
         {
             nextButton++;
@@ -43,7 +44,10 @@ public class NumberOrderMiniGame : MonoBehaviour
         {
             Debug.Log("Pass");
             nextButton = 0;
-            ButtonOrderPanelClose();
+
+            //Set delay to close panel and show success message
+            this.GetComponent<Image>().color = Color.green;
+            Invoke("ButtonOrderPanelClose", 1f);
         }
     }
     public void ButtonOrderPanelClose() //Set this function to the close button On click in the inspector
