@@ -12480,6 +12480,10 @@ PrefabInstance:
       propertyPath: INTERACTION.m_SingletonActionBindings.Array.data[0].m_Action
       value: INTERACTION
       objectReference: {fileID: 0}
+    - target: {fileID: 113010886, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
+      propertyPath: m_Name
+      value: Light
+      objectReference: {fileID: 0}
     - target: {fileID: 231359874, guid: 5dccba05ea8a697498b4ac01c791695d, type: 3}
       propertyPath: m_Enabled
       value: 0

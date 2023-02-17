@@ -79,7 +79,8 @@ public class AU_PlayerController : MonoBehaviour
         {
             localPlayer = this;
         }
-        myCamera = transform.GetChild(1).GetComponent<Camera>();
+        myCamera = transform.GetChild(2).GetComponent<Camera>();
+        Debug.Log(myCamera);
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
@@ -238,9 +239,11 @@ public class AU_PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Here");
+            Debug.Log("Here" + myCamera);
+            Debug.Log(myCamera.name);
             RaycastHit hit;
             Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
+            Debug.Log("here 2");
             if (Physics.Raycast(ray, out hit,interactLayer))
             {
                 if (hit.transform.tag == "Interactable")
