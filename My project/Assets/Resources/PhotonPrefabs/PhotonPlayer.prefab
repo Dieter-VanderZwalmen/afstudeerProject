@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4855725772804232783}
   - component: {fileID: 4855725772804232776}
+  - component: {fileID: 3216277362865408397}
   m_Layer: 0
   m_Name: PhotonPlayer
   m_TagString: Untagged
@@ -55,6 +56,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &3216277362865408397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4855725772804232777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816325378000bd6468f6f24d72ecf754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4855725772992452968
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +117,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4855725772992452968}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -148,7 +161,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4855725772992452968}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

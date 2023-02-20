@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 7018325588081099161}
   - component: {fileID: 6163307835992136301}
   - component: {fileID: 6669778298453807833}
+  - component: {fileID: 3079868843097923290}
   m_Layer: 6
   m_Name: AU_Player
   m_TagString: Player
@@ -469,7 +470,6 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   movementSpeed: 5
-  myColor: {r: 0, g: 0, b: 0, a: 0}
   isImposter: 1
   KILL:
     m_Name: KILL
@@ -510,6 +510,27 @@ MonoBehaviour:
   ignoreForBody:
     serializedVersion: 2
     m_Bits: 512
+  MOUSE:
+    m_Name: MOUSE
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 453a7694-ee9b-4473-b3ae-37069a0433bb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  INTERACTION:
+    m_Name: INTERACTION
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0ecc96dd-4648-4561-9a97-dfeb826bd049
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &7018325588081099161
 Animator:
   serializedVersion: 5
@@ -567,6 +588,28 @@ MonoBehaviour:
   offset: 0.05
   showRed: 0
   showGreen: 0
+--- !u!114 &3079868843097923290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5933396830479603573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6481095761687368709
 GameObject:
   m_ObjectHideFlags: 0
