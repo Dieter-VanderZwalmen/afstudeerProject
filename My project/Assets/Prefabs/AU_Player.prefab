@@ -193,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.45, y: -0.09, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -469,7 +469,6 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   movementSpeed: 5
-  myColor: {r: 0, g: 0, b: 0, a: 0}
   isImposter: 1
   KILL:
     m_Name: KILL
@@ -510,6 +509,27 @@ MonoBehaviour:
   ignoreForBody:
     serializedVersion: 2
     m_Bits: 512
+  MOUSE:
+    m_Name: MOUSE
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 129e23ee-94e1-4644-be71-3232660228c9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  INTERACTION:
+    m_Name: INTERACTION
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 45ff1c68-742f-4a0a-bba5-a34c7a12046d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &7018325588081099161
 Animator:
   serializedVersion: 5
