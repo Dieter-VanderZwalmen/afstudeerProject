@@ -113,7 +113,7 @@ public class AU_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hasControl)
+        if (!myPV.IsMine)
             return;
 
         movementInput = WASD.ReadValue<Vector2>();
@@ -133,6 +133,8 @@ public class AU_PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!myPV.IsMine)
+            return;
         myRB.velocity = movementInput * movementSpeed;
     }
 
