@@ -531,6 +531,8 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 0
+  lightMask: {fileID: 113010886}
+  myLightCaster: {fileID: 6669778298453807833}
 --- !u!95 &7018325588081099161
 Animator:
   serializedVersion: 5
