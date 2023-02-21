@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AU_PlayerController : MonoBehaviour
+public class AU_PlayerController : MonoBehaviour, IPunObservable
 {
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
@@ -14,10 +14,13 @@ public class AU_PlayerController : MonoBehaviour
     Rigidbody myRB;
     Animator myAnim;
     Transform myAvatar;
+
     //Player movement
     [SerializeField] InputAction WASD;
     Vector2 movementInput;
     [SerializeField] float movementSpeed;
+
+    float direction = 1;
     //Player Color
     static Color myColor;
     SpriteRenderer myAvatarSprite;
@@ -113,6 +116,8 @@ public class AU_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        myAvatar.localScale = new Vector2(direction, 1);
+
         if (!myPV.IsMine)
             return;
 
@@ -120,7 +125,7 @@ public class AU_PlayerController : MonoBehaviour
         myAnim.SetFloat("Speed", movementInput.magnitude);
         if (movementInput.x != 0)
         {
-            myAvatar.localScale = new Vector2(Mathf.Sign(movementInput.x), 1);
+            direction = Mathf.Sign(movementInput.x);
         }
 
         if(allBodies.Count > 0)
@@ -267,5 +272,17 @@ public class AU_PlayerController : MonoBehaviour
                 }
             }
         } 
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(direction);
+        }
+        else
+        {
+            direction = (float)stream.ReceiveNext();
+        }
     }
 }
