@@ -1,7 +1,7 @@
 .settingButton {
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 255);
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
@@ -13,10 +13,12 @@
 }
 
 .spelButtons {
-    background-color: rgba(255, 255, 255, 255);
-    color: rgba(0, 0, 0, 255);
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 2px;
     margin-bottom: 2px;
+    width: 160px;
+    height: 40px;
 }
