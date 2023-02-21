@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class SpelScreen : MonoBehaviour
 {
+    public static AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
+
     private void OnEnable()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -42,17 +44,20 @@ public class SpelScreen : MonoBehaviour
     {
         // Handle Report button click
         Debug.Log("Report button clicked");
+        localPlayer.ReportBody();
     }
 
     public void Use()
     {
         // Handle Use button click
         Debug.Log("Use button clicked");
+        localPlayer.Interact();
     }
 
     public void Kill()
     {
         // Handle Kill button click
         Debug.Log("Kill button clicked");
+        localPlayer.KillTarget();
     }
 }

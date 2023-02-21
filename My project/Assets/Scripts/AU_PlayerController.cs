@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class AU_PlayerController : MonoBehaviour
 {
@@ -80,7 +82,6 @@ public class AU_PlayerController : MonoBehaviour
             localPlayer = this;
         }
         myCamera = transform.GetChild(2).GetComponent<Camera>();
-        Debug.Log(myCamera);
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
@@ -139,6 +140,7 @@ public class AU_PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("other tag: " + other.tag);
         if (other.tag == "Player")
         {
             AU_PlayerController tempTarget = other.GetComponent<AU_PlayerController>();
@@ -147,7 +149,8 @@ public class AU_PlayerController : MonoBehaviour
                 if (tempTarget.isImposter)
                     return;
                 else
-                {
+                {   
+                    Debug.Log("in trigger enter");
                     targets.Add(tempTarget);
                 }
             }
@@ -170,7 +173,8 @@ public class AU_PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            //Debug.Log(targets.Count);
+            Debug.Log("in killtarget after spacebarr press");
+            Debug.Log("targets count: " + targets.Count);
             if (targets.Count == 0)
                 return;
             else
@@ -182,6 +186,22 @@ public class AU_PlayerController : MonoBehaviour
                 targets[targets.Count - 1].Die();
                 targets.RemoveAt(targets.Count - 1);
             }
+        }
+    }
+
+    public void KillTarget()
+    {
+        //Debug.Log(targets.Count);
+        if (targets.Count == 0)
+            return;
+        else
+        {
+            if (targets[targets.Count - 1].isDead)
+                return;
+
+            transform.position = targets[targets.Count - 1].transform.position;
+            targets[targets.Count - 1].Die();
+            targets.RemoveAt(targets.Count - 1);
         }
     }
 
@@ -235,6 +255,18 @@ public class AU_PlayerController : MonoBehaviour
         tempBody.GetComponent<AU_Body>().Report();
     }
 
+    public void ReportBody()
+    {
+        if (bodiesFound == null)
+            return;
+        if (bodiesFound.Count == 0)
+            return;
+        Transform tempBody = bodiesFound[bodiesFound.Count - 1];
+        allBodies.Remove(tempBody);
+        bodiesFound.Remove(tempBody);
+        tempBody.GetComponent<AU_Body>().Report();
+    }
+
     void Interact(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -252,5 +284,21 @@ public class AU_PlayerController : MonoBehaviour
                 }
             }
         } 
+    }
+
+    public void Interact()
+    {
+        RaycastHit hit;
+        Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
+        if (Physics.Raycast(ray, out hit,interactLayer))
+        {
+            if (hit.transform.tag == "Interactable")
+            {
+                if (!hit.transform.GetChild(0).gameObject.activeInHierarchy)
+                    return;
+                AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
+                temp.PlayMiniGame();
+            }
+        }
     }
 }
