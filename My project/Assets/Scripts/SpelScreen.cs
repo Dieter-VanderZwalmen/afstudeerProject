@@ -42,20 +42,17 @@ public class SpelScreen : MonoBehaviour
     {
         // Handle Report button click
         Debug.Log("Report button clicked");
-        AU_PlayerController.ReportBody();
     }
 
     public void Use()
     {
         // Handle Use button click
         Debug.Log("Use button clicked");
-        AU_PlayerController.Interact();
     }
 
     public void Kill()
     {
         // Handle Kill button click
         Debug.Log("Kill button clicked");
-        AU_PlayerController.KillTarget();
     }
 }
