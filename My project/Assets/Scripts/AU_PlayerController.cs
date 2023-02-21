@@ -140,7 +140,6 @@ public class AU_PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("other tag: " + other.tag);
         if (other.tag == "Player")
         {
             AU_PlayerController tempTarget = other.GetComponent<AU_PlayerController>();
@@ -150,7 +149,6 @@ public class AU_PlayerController : MonoBehaviour
                     return;
                 else
                 {   
-                    Debug.Log("in trigger enter");
                     targets.Add(tempTarget);
                 }
             }
