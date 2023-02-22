@@ -746,7 +746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quickStartButton: {fileID: 1399067283}
   quickCancelButton: {fileID: 325345650}
-  roomSize: 10
+  roomSize: 2
 --- !u!4 &1215316930
 Transform:
   m_ObjectHideFlags: 0
