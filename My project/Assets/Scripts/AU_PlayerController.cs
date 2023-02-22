@@ -1,5 +1,6 @@
 using Photon.Pun;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -188,6 +189,11 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     private void KillTarget(InputAction.CallbackContext context)
     {
+        if (!myPV.IsMine)
+            return;
+        if (!isImposter)
+            return;
+
         if (context.phase == InputActionPhase.Performed)
         {
             //Debug.Log(targets.Count);
@@ -199,15 +205,26 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
                     return;
 
                 transform.position = targets[targets.Count - 1].transform.position;
-                targets[targets.Count - 1].Die();
+                //targets[targets.Count - 1].Die();  --> non multiplayer
+                targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
                 targets.RemoveAt(targets.Count - 1);
             }
         }
     }
 
+    [PunRPC]
+    void RPC_Kill()
+    {
+        Die();
+    }
+
     public void Die()
     {
-        AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
+        if (!myPV.IsMine)
+            return;
+
+        //AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
+        AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
         tempBody.SetColor(myAvatarSprite.color);
 
         isDead = true;
