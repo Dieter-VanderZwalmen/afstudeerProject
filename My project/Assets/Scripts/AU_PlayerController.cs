@@ -278,14 +278,14 @@ public class AU_PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
+            Debug.Log("Here");
             RaycastHit hit;
             Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
             if (Physics.Raycast(ray, out hit,interactLayer))
             {
                 if (hit.transform.tag == "Interactable")
                 {
-                    if (!hit.transform.GetChild(0).gameObject.activeInHierarchy)
-                        return;
+                    Debug.Log("Interactable");
                     AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
                     temp.PlayMiniGame();
                 }
