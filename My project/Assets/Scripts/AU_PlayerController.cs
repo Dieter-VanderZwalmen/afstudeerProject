@@ -141,6 +141,7 @@ public class AU_PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("other tag: " + other.tag);
         if (other.tag == "Player")
         {
             AU_PlayerController tempTarget = other.GetComponent<AU_PlayerController>();
@@ -180,8 +181,6 @@ public class AU_PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("in killtarget after spacebarr press");
-            Debug.Log("targets count: " + targets.Count);
             if (targets.Count == 0)
                 return;
             else
@@ -278,7 +277,6 @@ public class AU_PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Here");
             RaycastHit hit;
             Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
             if (Physics.Raycast(ray, out hit,interactLayer))
