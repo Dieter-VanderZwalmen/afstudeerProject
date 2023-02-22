@@ -27,6 +27,7 @@ public class AU_PlayerController : MonoBehaviour
     [SerializeField] InputAction KILL;
     float killInput;
 
+    AU_Interactable tempInteractable;
     List<AU_PlayerController> targets;
     [SerializeField] Collider myCollider;
 
@@ -153,6 +154,10 @@ public class AU_PlayerController : MonoBehaviour
                 }
             }
         }
+        if (other.tag == "Interactable")
+        {
+            tempInteractable = other.GetComponent<AU_Interactable>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -164,6 +169,10 @@ public class AU_PlayerController : MonoBehaviour
             {
                     targets.Remove(tempTarget);
             }
+        }
+        if (other.tag == "Interactable")
+        {
+            tempInteractable = null;
         }
     }
 
@@ -286,17 +295,9 @@ public class AU_PlayerController : MonoBehaviour
 
     public void Interact()
     {
-        RaycastHit hit;
-        Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
-        if (Physics.Raycast(ray, out hit,interactLayer))
+        if (tempInteractable != null)
         {
-            if (hit.transform.tag == "Interactable")
-            {
-                if (!hit.transform.GetChild(0).gameObject.activeInHierarchy)
-                    return;
-                AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
-                temp.PlayMiniGame();
-            }
+            tempInteractable.PlayMiniGame();
         }
     }
 }

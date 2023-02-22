@@ -44,6 +44,7 @@ public class SpelScreen : MonoBehaviour
     {
         // Handle Report button click
         Debug.Log("Report button clicked");
+        AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
         localPlayer.ReportBody();
     }
 
@@ -51,6 +52,7 @@ public class SpelScreen : MonoBehaviour
     {
         // Handle Use button click
         Debug.Log("Use button clicked");
+        AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
         localPlayer.Interact();
     }
 
@@ -58,6 +60,8 @@ public class SpelScreen : MonoBehaviour
     {
         // Handle Kill button click
         Debug.Log("Kill button clicked");
+        //how to get the local player from the scene?
+        AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
         localPlayer.KillTarget();
     }
 }
