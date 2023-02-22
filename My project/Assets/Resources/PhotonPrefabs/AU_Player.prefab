@@ -515,11 +515,19 @@ MonoBehaviour:
   MOUSE:
     m_Name: MOUSE
     m_Type: 0
-    m_ExpectedControlType: 
+    m_ExpectedControlType: Vector2
     m_Id: 453a7694-ee9b-4473-b3ae-37069a0433bb
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 86a91524-71b3-4445-b604-f0be083b4d8a
+      m_Path: <Mouse>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: MOUSE
+      m_Flags: 0
     m_Flags: 0
   INTERACTION:
     m_Name: INTERACTION
@@ -528,11 +536,19 @@ MonoBehaviour:
     m_Id: 0ecc96dd-4648-4561-9a97-dfeb826bd049
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 920dd61b-0cb6-4f6f-9f45-a20b7778765b
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: INTERACTION
+      m_Flags: 0
     m_Flags: 0
   interactLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 576
   lightMask: {fileID: 113010886}
   myLightCaster: {fileID: 6669778298453807833}
 --- !u!95 &7018325588081099161
