@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class AU_PlayerController : MonoBehaviour, IPunObservable
 {
@@ -86,6 +87,9 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        
         myPV = GetComponent<PhotonView>();
 
         if(myPV.IsMine)
@@ -109,6 +113,13 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if (myColor == Color.clear)
             myColor = Color.white;
         myAvatarSprite.color = myColor;
+
+        if (sceneName == "StartGame")
+        {
+            myCamera.gameObject.SetActive(false);
+            lightMask.SetActive(false);
+            myLightCaster.enabled = false;
+        }
 
         allBodies = new List<Transform>();
 
