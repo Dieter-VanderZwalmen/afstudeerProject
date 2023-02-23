@@ -491,7 +491,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   myCollider: {fileID: 5613005126089347639}
-  bodyPrefab: {fileID: 8982499816898648969, guid: da398b30f890a384d84f312dfa4983a7, type: 3}
+  bodyPrefab: {fileID: 8982499816898648969, guid: 3922e441fb2f6da48b33d2c205c1c9d2, type: 3}
   REPORT:
     m_Name: REPORT
     m_Type: 0
@@ -549,8 +549,8 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 576
-  lightMask: {fileID: 113010886}
-  myLightCaster: {fileID: 6669778298453807833}
+  lightMask: {fileID: 0}
+  myLightCaster: {fileID: 0}
 --- !u!95 &7018325588081099161
 Animator:
   serializedVersion: 5

@@ -46,6 +46,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     [SerializeField] LayerMask ignoreForBody;
 
     //Interaction
+    AU_Interactable tempInteractable;
     [SerializeField] InputAction MOUSE;
     Vector2 mousePositionInput;
     Camera myCamera;
@@ -173,6 +174,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
                 }
             }
         }
+        if (other.tag == "Interactable")
+        {
+            tempInteractable = other.GetComponent<AU_Interactable>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -184,6 +189,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             {
                     targets.Remove(tempTarget);
             }
+        }
+        if (other.tag == "Interactable")
+        {
+            tempInteractable = null;
         }
     }
 
@@ -329,21 +338,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     public void Interact()
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            Debug.Log("Here");
-            RaycastHit hit;
-            Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
-            if (Physics.Raycast(ray, out hit,interactLayer))
+        if (tempInteractable != null)
             {
-                if (hit.transform.tag == "Interactable")
-                {
-                    Debug.Log("Interactable");
-                    AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
-                    temp.PlayMiniGame();
-                }
+                tempInteractable.PlayMiniGame();
             }
-        } 
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
