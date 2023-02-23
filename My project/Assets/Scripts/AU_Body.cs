@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AU_Body : MonoBehaviour
 {
@@ -24,6 +23,5 @@ public class AU_Body : MonoBehaviour
     {
         Debug.Log("Reported");
         Destroy(gameObject);
-        SceneManager.LoadScene("VotingScreen");
     }
 }

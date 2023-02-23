@@ -11,7 +11,7 @@ public class StartMenu : MonoBehaviour
     {
         // Handle Online button click
         Debug.Log("Online button clicked");
-        SceneManager.LoadScene("StartGame");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void HowToPlay()
