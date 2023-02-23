@@ -6,17 +6,11 @@ using Photon.Realtime;
 
 public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private GameObject quickStartButton;
-    [SerializeField]
-    private GameObject quickCancelButton;
-    [SerializeField]
     private int roomSize;
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        quickStartButton.SetActive(true);
     }
 
     public void QuickStart()
@@ -48,8 +42,6 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 
     public void QuickCancel()
     {
-        quickCancelButton.SetActive(false);
-        quickStartButton.SetActive(true);
         PhotonNetwork.LeaveRoom();
     }
 }
