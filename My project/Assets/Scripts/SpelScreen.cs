@@ -15,15 +15,15 @@ public class SpelScreen : MonoBehaviour
 
         Button buttonSettings = root.Q<Button>("Settings");
         Button buttonMap = root.Q<Button>("Map");
-        /*Button buttonReport = root.Q<Button>("Report");
+        Button buttonReport = root.Q<Button>("Report");
         Button buttonUse = root.Q<Button>("Use");
-        Button buttonKill = root.Q<Button>("Kill");*/
+        Button buttonKill = root.Q<Button>("Kill");
 
         buttonSettings.clickable.clicked += () => Settings();
         buttonMap.clickable.clicked += () => Map();
-        /*buttonReport.clickable.clicked += () => Report();
+        buttonReport.clickable.clicked += () => Report();
         buttonUse.clickable.clicked += () => Use();
-        buttonKill.clickable.clicked += () => Kill();*/
+        buttonKill.clickable.clicked += () => Kill();
     }
 
     public void Settings()
@@ -40,7 +40,7 @@ public class SpelScreen : MonoBehaviour
         SceneManager.LoadScene("Map");
     }
 
-    /*public void Report()
+    public void Report()
     {
         // Handle Report button click
         Debug.Log("Report button clicked");
@@ -63,5 +63,5 @@ public class SpelScreen : MonoBehaviour
         //how to get the local player from the scene?
         AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
         localPlayer.KillTarget();
-    }*/
+    }
 }

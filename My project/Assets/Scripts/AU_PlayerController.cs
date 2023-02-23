@@ -212,6 +212,30 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         }
     }
 
+    public void KillTarget()
+    {
+        if (!myPV.IsMine)
+            return;
+        if (!isImposter)
+            return;
+
+            //Debug.Log(targets.Count);
+            if (targets.Count == 0)
+                return;
+            else
+            {
+                if (targets[targets.Count - 1].isDead)
+                    return;
+
+                transform.position = targets[targets.Count - 1].transform.position;
+                //targets[targets.Count - 1].Die();  --> non multiplayer
+                targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
+                targets.RemoveAt(targets.Count - 1);
+            
+        }
+    }
+
+
     [PunRPC]
     void RPC_Kill()
     {
@@ -273,6 +297,37 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     }
 
     void Interact(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            Debug.Log("Here");
+            RaycastHit hit;
+            Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
+            if (Physics.Raycast(ray, out hit,interactLayer))
+            {
+                if (hit.transform.tag == "Interactable")
+                {
+                    Debug.Log("Interactable");
+                    AU_Interactable temp = hit.transform.GetComponent<AU_Interactable>();
+                    temp.PlayMiniGame();
+                }
+            }
+        } 
+    }
+
+    public void ReportBody()
+    {
+        if (bodiesFound == null)
+            return;
+        if (bodiesFound.Count == 0)
+            return;
+        Transform tempBody = bodiesFound[bodiesFound.Count - 1];
+        allBodies.Remove(tempBody);
+        bodiesFound.Remove(tempBody);
+        tempBody.GetComponent<AU_Body>().Report();
+    }
+
+    public void Interact()
     {
         if (context.phase == InputActionPhase.Performed)
         {
