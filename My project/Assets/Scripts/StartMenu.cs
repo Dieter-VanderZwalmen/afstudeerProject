@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Photon.Pun;
 
 
 public class StartMenu : MonoBehaviour
 {
+    private QuickStartLobbyController quickStartLobbyController = new QuickStartLobbyController();
+
     private void OnEnable()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -28,8 +31,9 @@ public class StartMenu : MonoBehaviour
     {
         // Handle Online button click
         Debug.Log("Online button clicked");
-        SceneManager.LoadScene("MainMenu");
+        this.quickStartLobbyController.QuickStart();
     }
+    
 
     public void HowToPlay()
     {

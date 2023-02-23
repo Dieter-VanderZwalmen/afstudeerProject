@@ -4,6 +4,9 @@ using System.IO;
 
 public class GameSetupController : MonoBehaviour
 {
+    PhotonView myPV;
+    Camera myCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,13 @@ public class GameSetupController : MonoBehaviour
     {
         Debug.Log("Creating Player");
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), Vector2.zero, Quaternion.identity, 0);
+        Debug.Log("maincamera van speler:" + GameObject.FindWithTag("Player"));
+        myCamera = GetComponent<Camera>();
+        myPV = GetComponent<PhotonView>();
+        if (!myPV.IsMine)
+        {
+            myCamera.gameObject.SetActive(false);
+            return;
+        }
     }
 }
