@@ -13,11 +13,14 @@ public class StartGame : MonoBehaviour
 
         Button buttonGarderobe = root.Q<Button>("Garderobe");
         Button buttonPlay = root.Q<Button>("Play");
+        Label hostLabel = root.Q<Label>("Host");
 
         buttonGarderobe.clickable.clicked += () => CharacterCustomization();
 
         if (!PhotonNetwork.IsMasterClient)
             buttonPlay.SetEnabled(false);
+            //dont show host label
+            hostLabel.style.display = DisplayStyle.None;
         
         buttonPlay.clickable.clicked += () => OnPlayClick();
     }
