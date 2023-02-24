@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-
+using Photon.Pun;
 
 public class StartGame : MonoBehaviour
 {
@@ -22,7 +22,8 @@ public class StartGame : MonoBehaviour
     {
         // Handle Online button click
         Debug.Log("Online button clicked");
-        SceneManager.LoadScene("Game");
+        if (PhotonNetwork.IsMasterClient)
+            SceneManager.LoadScene("Game");
     }
 
     public void CharacterCustomization()
