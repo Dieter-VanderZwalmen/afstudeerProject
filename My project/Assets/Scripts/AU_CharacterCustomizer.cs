@@ -12,8 +12,8 @@ public class AU_CharacterCustomizer : MonoBehaviour
         AU_PlayerController.localPlayer.SetColor(allColors[colorIndex]);
     }
 
-    public void NextScene(string scene)
+    public void NextScene(int sceneIndex)
     {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene(sceneIndex);
     }
 }
