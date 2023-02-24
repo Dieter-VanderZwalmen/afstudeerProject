@@ -3,22 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Photon.Pun;
 
 public class VotingScreen : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+    [SerializeField] private Text _playerNameText;
+    [SerializeField] private Text _statusText;
 
-        Button buttonSkip = root.Q<Button>("Skip");
+    private int _actorNumber;
 
-        buttonSkip.clickable.clicked += () => Skip();
+    public int ActorNumber{
+        get { return _actorNumber; }
     }
 
-     public void Skip()
+    private Button _voteButton;
+    private VotingManager _votingManager;
+
+    private void awake()
     {
-        Debug.Log("Skip button clicked");
-        SceneManager.LoadScene("Game");
+        _voteButton = GetComponentInChildren<Button>();
+        _voteButton.onClick.AddListener(OnVotePressed);
     }
+
+    private void OnVotePressed()
+    {
+        _votingManager.CastVote(_actorNumber);
+    }
+
+    public void Initialize(VotingManager votingManager, AU_PlayerController player)
+    {
+        _actorNumber = player.ActorNumber;
+        _playerNameText.text = player.NickName;
+        _statusText.text = "Not Decided";
+        _votingManager = votingManager;
+    }
+
+    public void updateStatus(string status)
+    {
+        _statusText.text = status;
+    }
+
+    public void ToggleButton(bool isInteractable)
+    {
+        _voteButton.interactable = isInteractable;
+    }
+
 }
