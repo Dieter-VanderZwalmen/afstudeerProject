@@ -31,8 +31,6 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         int randomRoomNumber = Random.Range(0, 10000);
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps);
-        //make master client
-        PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
         Debug.Log(randomRoomNumber + " Je bent de master client");
     }
 
