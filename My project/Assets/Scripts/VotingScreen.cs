@@ -7,12 +7,13 @@ using Photon.Pun;
 
 public class VotingScreen : MonoBehaviour
 {
-    [SerializeField] private Text _playerNameText;
-    [SerializeField] private Text _statusText;
+    [SerializeField] private GameObject _playerNameText;
+    [SerializeField] private GameObject _statusText;
 
+    //lol 2
     private int _actorNumber;
 
-    public int ActorNumber{
+    public int GetActorNumber{
         get { return _actorNumber; }
     }
 
@@ -33,14 +34,14 @@ public class VotingScreen : MonoBehaviour
     public void Initialize(VotingManager votingManager, AU_PlayerController player)
     {
         _actorNumber = player.actorNumber;
-        _playerNameText.text = player.nickName;
-        _statusText.text = "Not Decided";
+        _playerNameText.GetComponent<Text>().text = player.nickName;
+        _statusText.GetComponent<Text>().text = "Not Decided";
         _votingManager = votingManager;
     }
 
     public void updateStatus(string status)
     {
-        _statusText.text = status;
+        _statusText.GetComponent<Text>().text = status;
     }
 
     public void ToggleButton(bool isInteractable)

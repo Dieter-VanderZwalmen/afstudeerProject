@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 8033777685776742260}
   - component: {fileID: 8033777685776742263}
   - component: {fileID: 8033777685776742261}
+  - component: {fileID: 3928914515097809041}
   m_Layer: 5
   m_Name: VotePlayerItem
   m_TagString: Untagged
@@ -400,6 +401,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3928914515097809041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033777685776742153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549e2841f4ff80946817f5d8ff3f0ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerNameText: {fileID: 8033777686433555790}
+  _statusText: {fileID: 8033777686818459258}
 --- !u!1 &8033777686433555790
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +427,7 @@ GameObject:
   - component: {fileID: 8033777686433555789}
   - component: {fileID: 8033777686433555788}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +562,7 @@ GameObject:
   - component: {fileID: 8033777686818459257}
   - component: {fileID: 8033777686818459256}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: PlayerStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
