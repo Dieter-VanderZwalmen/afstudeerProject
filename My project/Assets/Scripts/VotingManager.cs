@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class VotingManager : MonoBehaviour
 {
-    
+    public void CastVote(int actorNumber)
+    {
+    }
 }

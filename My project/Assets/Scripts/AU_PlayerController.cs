@@ -11,6 +11,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 {
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
+    public string nickName;
+    public int actorNumber;
 
     //Components
     Rigidbody myRB;
@@ -95,6 +97,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if(myPV.IsMine)
         {
             localPlayer = this;
+            Debug.Log("Local Player actornumber: " + PhotonNetwork.LocalPlayer.ActorNumber);
+            this.actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         }
         myCamera = transform.GetChild(2).GetComponent<Camera>();
         Debug.Log(myCamera);

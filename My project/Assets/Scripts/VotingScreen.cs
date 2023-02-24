@@ -32,8 +32,8 @@ public class VotingScreen : MonoBehaviour
 
     public void Initialize(VotingManager votingManager, AU_PlayerController player)
     {
-        _actorNumber = player.ActorNumber;
-        _playerNameText.text = player.NickName;
+        _actorNumber = player.actorNumber;
+        _playerNameText.text = player.nickName;
         _statusText.text = "Not Decided";
         _votingManager = votingManager;
     }
