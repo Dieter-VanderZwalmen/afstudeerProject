@@ -19,10 +19,10 @@ public class Fov : MonoBehaviour
         transform.position = Vector3.zero;
         origin = transform.parent.position;
         float fov = 360f;
-        int rayCount = 250;
+        int rayCount = 360;
         float currentAngle = 0f;
         float angleIncrease = fov / rayCount;
-        float viewDistance = 3f;
+        float viewDistance = 15f;
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
@@ -32,37 +32,42 @@ public class Fov : MonoBehaviour
 
         int vertexIndex = 1;
         int triangleIndex = 0;
-        for (int i = 0; i <= rayCount; i++)
-        {
-            //Vector3 VectorFromAngle = new Vector3(Mathf.Cos(currentAngle * (Mathf.PI / 180f)), Mathf.Sin(currentAngle * (Mathf.PI / 180f)));
-            Vector3 vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(
-                origin,
-                GetVectorFromAngle(currentAngle),
-                viewDistance
-            );
-            if (raycastHit2D.collider == null)
-            {
-                vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
-            }
-            else
-            {
-                vertex = raycastHit2D.point;
-            }
-            vertices[vertexIndex] = vertex;
+for (int i = 0; i <= rayCount; i++)
+{
+    Vector3 vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
+    RaycastHit raycastHit;
+    bool hasHit = Physics.Raycast(
+        origin,
+        GetVectorFromAngle(currentAngle),
+        out raycastHit,
+        viewDistance
+    );
+    if (!hasHit)
+    {
+        vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
+    }
+    else if (raycastHit.collider.gameObject.tag == "Transparent")
+    {
+        vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
+    }
+    else
+    {
+        vertex = raycastHit.point;
+    }
+    vertices[vertexIndex] = vertex;
 
-            if (i > 0)
-            {
-                triangles[triangleIndex + 0] = 0;
-                triangles[triangleIndex + 1] = vertexIndex - 1;
-                triangles[triangleIndex + 2] = vertexIndex;
+    if (i > 0)
+    {
+        triangles[triangleIndex + 0] = 0;
+        triangles[triangleIndex + 1] = vertexIndex - 1;
+        triangles[triangleIndex + 2] = vertexIndex;
 
-                triangleIndex += 3;
-            }
+        triangleIndex += 3;
+    }
 
-            vertexIndex++;
-            currentAngle -= angleIncrease;
-        }
+    vertexIndex++;
+    currentAngle -= angleIncrease;
+}
 
         mesh.vertices = vertices;
         mesh.uv = uv;

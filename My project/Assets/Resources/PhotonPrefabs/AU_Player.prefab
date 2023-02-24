@@ -383,7 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e35a8eb092735c4897b8707ef6017aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: {fileID: 3174081584439580906}
   hasControl: 1
   WASD:
     m_Name: WASD
