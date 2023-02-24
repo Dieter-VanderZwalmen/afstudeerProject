@@ -6,20 +6,18 @@ public class Fov : MonoBehaviour
 {
     private Mesh mesh;
     private Vector3 origin;
-    private Vector3 playerposition; 
 
     private void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        
-        origin = Vector3.zero;
-        playerposition = Vector3.zero;
     }
 
     // Start is called before the first frame update
     void Update()
     {
+        transform.position = Vector3.zero;
+        origin = transform.parent.position;
         float fov = 360f;
         int rayCount = 250;
         float currentAngle = 0f;
@@ -31,8 +29,6 @@ public class Fov : MonoBehaviour
         int[] triangles = new int[rayCount * 3];
 
         vertices[0] = origin;
-        vertices[0] = playerposition;
-        Debug.Log("Origin in update " + origin);
 
         int vertexIndex = 1;
         int triangleIndex = 0;
@@ -78,16 +74,5 @@ public class Fov : MonoBehaviour
     {
         float angleRad = angle * (Mathf.PI / 180f);
         return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
-    }
-
-    public void SetOrigin(Vector3 origin)
-    {
-        Debug.Log("SetOrigin "+ origin);
-        this.origin = origin;
-    }
-
-    public void SetCoordinates(Vector3 playerposition)
-    {
-        this.playerposition = playerposition;
     }
 }
