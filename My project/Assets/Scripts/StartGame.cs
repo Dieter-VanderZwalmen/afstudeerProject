@@ -16,11 +16,11 @@ public class StartGame : MonoBehaviour
         Label hostLabel = root.Q<Label>("Host");
 
         buttonGarderobe.clickable.clicked += () => CharacterCustomization();
+        hostLabel.text = "Welkom " + PhotonNetwork.NickName;
 
         if (!PhotonNetwork.IsMasterClient)
             buttonPlay.SetEnabled(false);
             //dont show host label
-            hostLabel.style.display = DisplayStyle.None;
         
         buttonPlay.clickable.clicked += () => OnPlayClick();
     }
