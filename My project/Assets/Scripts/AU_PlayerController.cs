@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class AU_PlayerController : MonoBehaviour, IPunObservable
 {
+
+    [SerializeField] private Fov fov;
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
 
@@ -92,7 +94,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             localPlayer = this;
         }
-        myCamera = transform.GetChild(2).GetComponent<Camera>();
+        myCamera = transform.GetChild(1).GetComponent<Camera>();
         Debug.Log(myCamera);
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
@@ -134,7 +136,9 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             BodySearch();
         }
-
+        fov.SetOrigin(transform.position);
+        //fov.SetCoordinates(transform.position);
+    
         mousePositionInput = MOUSE.ReadValue<Vector2>();
     }
 
