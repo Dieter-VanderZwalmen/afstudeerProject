@@ -15,6 +15,10 @@ public class StartGame : MonoBehaviour
         Button buttonPlay = root.Q<Button>("Play");
 
         buttonGarderobe.clickable.clicked += () => CharacterCustomization();
+
+        if (!PhotonNetwork.IsMasterClient)
+            buttonPlay.SetEnabled(false);
+        
         buttonPlay.clickable.clicked += () => OnPlayClick();
     }
 
