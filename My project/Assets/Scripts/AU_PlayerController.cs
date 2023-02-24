@@ -97,10 +97,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if(myPV.IsMine)
         {
             localPlayer = this;
-            Debug.Log("Local Player actornumber: " + PhotonNetwork.LocalPlayer.ActorNumber);
             this.actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-            Debug.Log("Local Player actornumber: " + PhotonNetwork.LocalPlayer.NickName);
-            this.nickName = PhotonNetwork.LocalPlayer.NickName;
         }
         myCamera = transform.GetChild(2).GetComponent<Camera>();
         Debug.Log(myCamera);
@@ -326,7 +323,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Here");
             RaycastHit hit;
             Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
             if (Physics.Raycast(ray, out hit,interactLayer))
