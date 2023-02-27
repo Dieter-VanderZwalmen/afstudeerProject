@@ -14,6 +14,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     public string nickName;
     public int actorNumber;
 
+    private static VotingManager votingManager = new VotingManager();
+
     //Components
     Rigidbody myRB;
     Animator myAnim;
@@ -44,6 +46,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     public static List<Transform> allBodies;
 
     List<Transform> bodiesFound;
+    List<int> bodiesFoundActorNumber;
 
     [SerializeField] InputAction REPORT;
     [SerializeField] LayerMask ignoreForBody;
@@ -147,6 +150,12 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if(allBodies.Count > 0)
         {
             BodySearch();
+        }
+
+        if (isDead)
+        {
+            Debug.Log("im Dead");
+            bodiesFoundActorNumber.Add(myPV.Owner.ActorNumber);
         }
 
         mousePositionInput = MOUSE.ReadValue<Vector2>();
@@ -270,8 +279,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if (!myPV.IsMine)
             return;
 
-        AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
-        //AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
+        //AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
+        AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
         tempBody.SetColor(myAvatarSprite.color);
 
         isDead = true;
@@ -347,6 +356,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
+        votingManager.DeadBodyReported(myPV, 2);
     }
 
     public void Interact()

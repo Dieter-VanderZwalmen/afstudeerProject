@@ -7,7 +7,6 @@ using Photon.Pun;
 public class VotingManager : MonoBehaviour
 {
     public static VotingManager Instance;
-    PhotonView photonView = new PhotonView();
 
     private List<int> _reportedBodiesList = new List<int>();
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
@@ -24,9 +23,9 @@ public class VotingManager : MonoBehaviour
         return _reportedBodiesList.Contains(actorNumber);
     }
 
-    public void DeadBodyReported(int actorNumber)
+    public void DeadBodyReported(PhotonView pv, int actorNumber)
     {
-        photonView.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
+        pv.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
     }
 
     [PunRPC]

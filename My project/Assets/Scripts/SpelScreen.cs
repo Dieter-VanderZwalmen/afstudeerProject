@@ -8,8 +8,7 @@ using UnityEngine.UIElements;
 public class SpelScreen : MonoBehaviour
 {
     public static AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
-    private static VotingManager votingManager = new VotingManager();
-
+    
     private void OnEnable()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -47,8 +46,6 @@ public class SpelScreen : MonoBehaviour
         Debug.Log("Report button clicked");
         AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
         localPlayer.ReportBody();
-        votingManager.DeadBodyReported(localPlayer.actorNumber);
-        SceneManager.LoadScene("VotingScreen");
     }
 
     public void Use()
