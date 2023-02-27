@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="height: 100%; width: 100%; background-image: url(&apos;project://database/Assets/achtergrond.png?fileID=2800000&amp;guid=b78ca984753c44baf89e5c1aae8b6a0f&amp;type=3#achtergrond&apos;); align-items: center; justify-content: center; position: relative; opacity: 1; display: flex; visibility: visible; overflow: visible; -unity-background-scale-mode: scale-and-crop;">
+        <ui:VisualElement style="height: 5%; width: 90%;">
+            <ui:Button display-tooltip-when-elided="true" name="Back" style="width: 34px; background-image: url(&apos;project://database/Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/secondarytabclose.png?fileID=2800000&amp;guid=03cefa94d5aa9d74993fb2138af9d607&amp;type=3#secondarytabclose&apos;); background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgba(20, 47, 78, 255); height: 34px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 0; margin-left: 0; margin-right: 6px; padding-bottom: 6px; margin-bottom: 6px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="width: 80%; height: 80%; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.67); border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; margin-bottom: 15px;" />
+    </ui:VisualElement>
+</ui:UXML>
