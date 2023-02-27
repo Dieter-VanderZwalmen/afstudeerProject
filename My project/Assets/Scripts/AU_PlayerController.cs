@@ -130,6 +130,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies = new List<Transform>();
 
         bodiesFound = new List<Transform>();
+
+        bodiesFoundActorNumber = new List<int>();
     }
 
     // Update is called once per frame
@@ -150,12 +152,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if(allBodies.Count > 0)
         {
             BodySearch();
-        }
-
-        if (isDead)
-        {
-            Debug.Log("im Dead");
-            bodiesFoundActorNumber.Add(myPV.Owner.ActorNumber);
         }
 
         mousePositionInput = MOUSE.ReadValue<Vector2>();
@@ -262,8 +258,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
                 transform.position = targets[targets.Count - 1].transform.position;
                 //targets[targets.Count - 1].Die();  --> non multiplayer
                 targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
+                Debug.Log(targets[targets.Count - 1].myPV.Owner.ActorNumber);
+                bodiesFoundActorNumber.Add(targets[targets.Count - 1].myPV.Owner.ActorNumber);
                 targets.RemoveAt(targets.Count - 1);
-            
+
         }
     }
 
@@ -348,15 +346,21 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     public void ReportBody()
     {
+        Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber);
+        Debug.Log("in Reportbodyfunction is bodiesfound " + bodiesFound);
         if (bodiesFound == null)
+            Debug.Log("bodiesfound is null");
             return;
         if (bodiesFound.Count == 0)
+            Debug.Log("bodiesfound is 0");
             return;
+        Debug.Log("here toch");
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        votingManager.DeadBodyReported(myPV, 2);
+        Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber[bodiesFoundActorNumber.Count - 1]);
+        votingManager.DeadBodyReported(myPV, bodiesFoundActorNumber[bodiesFoundActorNumber.Count - 1]);
     }
 
     public void Interact()
