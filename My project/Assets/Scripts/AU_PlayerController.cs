@@ -57,7 +57,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     [SerializeField] LayerMask interactLayer;
 
     //Networking
-    PhotonView myPV;
+    public PhotonView myPV; 
     [SerializeField] GameObject lightMask;
     [SerializeField] lightcaster myLightCaster;
 
@@ -270,8 +270,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if (!myPV.IsMine)
             return;
 
-        //AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
-        AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
+        AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
+        //AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
         tempBody.SetColor(myAvatarSprite.color);
 
         isDead = true;

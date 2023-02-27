@@ -1,21 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class VotingManager : MonoBehaviour
 {
     public static VotingManager Instance;
+    PhotonView photonView = new PhotonView();
 
     private List<int> _reportedBodiesList = new List<int>();
+    [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
+    [SerializeField] private Transform _votePlayerItemContainer;
+    private List<VotePlayerItem> _playersList = new List<VotePlayerItem>();
 
     private void Awake()
     {
         Instance = this;
     }
 
-    public void AddBodyToReportedList(int actorNumber)
+    public bool BodyReported(int actorNumber)
+    {
+        return _reportedBodiesList.Contains(actorNumber);
+    }
+
+    public void DeadBodyReported(int actorNumber)
+    {
+        photonView.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
+    }
+
+    [PunRPC]
+    void RPC_DeadBodyReported(int actorNumber)
     {
         _reportedBodiesList.Add(actorNumber);
+        SceneManager.LoadScene("VotingScreen");
+    }
+
+    private void PopulatePlayerList()
+    {
+        //clear the list
+        for (int i = 0; i < _playersList.Count; i++)
+        {
+            Destroy(_playersList[i].gameObject);
+        }
+
+        _playersList.Clear();
+
+        //populate the list
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            var votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
+            _playersList.Add(votePlayerItem);
+        }
     }
 
     public void CastVote(int actorNumber)

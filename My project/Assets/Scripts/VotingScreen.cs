@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class VotingScreen : MonoBehaviour
+public class VotePlayerItem : MonoBehaviour
 {
     [SerializeField] private GameObject _playerNameText;
     [SerializeField] private GameObject _statusText;

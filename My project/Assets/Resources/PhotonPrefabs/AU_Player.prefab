@@ -422,6 +422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasControl: 1
+  nickName: 
+  actorNumber: 0
   WASD:
     m_Name: WASD
     m_Type: 0
