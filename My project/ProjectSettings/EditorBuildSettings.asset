@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 3aa7cff8758f86445bda02c3a3b59b25
+  - enabled: 1
+    path: Assets/Scenes/QuickStartMenu.unity
+    guid: 3fe40e993fe5a564e8032af37325e0d6
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: d9b8618bb718f03408e60f798c02fc2a
@@ -17,16 +20,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/VotingScreen.unity
     guid: a0ad91752b3514f098af485c700d2670
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Settings.unity
     guid: 0ffc1b6f3221b48339ececd416031454
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HowToPlay.unity
     guid: 16261ec38acb4460cbf02e357f01e483
   - enabled: 0
     path: Assets/Scenes/StartMenu 1.unity
     guid: fac8d9a3f44a94703a9b4a33eb37f43a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartMenu.unity
     guid: 8c054a443af78504c84a367f07d51f65
   m_configObjects: {}

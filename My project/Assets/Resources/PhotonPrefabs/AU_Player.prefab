@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbe4013f907e064cb2bf100c702ecbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 5877
 --- !u!33 &5623597830679418553
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -312,7 +315,6 @@ GameObject:
   - component: {fileID: -5921047952930951600}
   - component: {fileID: 7018325588081099161}
   - component: {fileID: 6163307835992136301}
-  - component: {fileID: 6669778298453807833}
   - component: {fileID: 3079868843097923290}
   - component: {fileID: 3163822818365397497}
   - component: {fileID: 4562321448808144010}
@@ -546,30 +548,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6669778298453807833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5933396830479603573}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1879f875919b7c44cb8c289a603139dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ignoreMe:
-    serializedVersion: 2
-    m_Bits: 576
-  getRadius: 20
-  wallMask:
-    serializedVersion: 2
-    m_Bits: 128
-  sceneObjects: []
-  lightRays: {fileID: 0}
-  offset: 0.05
-  showRed: 0
-  showGreen: 0
 --- !u!114 &3079868843097923290
 MonoBehaviour:
   m_ObjectHideFlags: 0

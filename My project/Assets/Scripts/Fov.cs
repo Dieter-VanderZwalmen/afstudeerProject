@@ -6,6 +6,7 @@ public class Fov : MonoBehaviour
 {
     private Mesh mesh;
     private Vector3 origin;
+    public LayerMask layer;
 
     private void Start()
     {
@@ -36,17 +37,23 @@ for (int i = 0; i <= rayCount; i++)
 {
     Vector3 vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
     RaycastHit raycastHit;
-    bool hasHit = Physics.Raycast(
+    bool hasHit =   Physics.Raycast(
         origin,
         GetVectorFromAngle(currentAngle),
         out raycastHit,
-        viewDistance
+        viewDistance,
+        layer
     );
+
+    //loop over alle hits
+    //indien hit
+    //check of de tag Wall
+    //zoja 
+    //pak kleinste afstand
+    //vertex = raycastHit.point;
+    
+  
     if (!hasHit)
-    {
-        vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
-    }
-    else if (raycastHit.collider.gameObject.tag == "Transparent")
     {
         vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
     }

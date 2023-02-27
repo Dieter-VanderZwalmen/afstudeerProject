@@ -11,6 +11,9 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
 
+    //layer numbers
+
+    public static int behindMaskLayerNumber = 9;
     //Components
     Rigidbody myRB;
     Animator myAnim;
@@ -100,9 +103,14 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
         if (!myPV.IsMine)
         {
+            //disable child object named fov
+            //transform.GetChild(2).gameObject.SetActive(false);
+            //set the layer to behindMask
+            //myAvatar.gameObject.layer = behindMaskLayerNumber;
+            
             myCamera.gameObject.SetActive(false);
-            lightMask.SetActive(false);
-            myLightCaster.enabled = false;
+            //lightMask.SetActive(false);
+            //myLightCaster.enabled = false;
             return;
         }
         if (myColor == Color.clear)
