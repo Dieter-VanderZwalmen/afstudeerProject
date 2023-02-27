@@ -320,7 +320,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Here");
             RaycastHit hit;
             Ray ray = myCamera.ScreenPointToRay(mousePositionInput);
             if (Physics.Raycast(ray, out hit,interactLayer))
