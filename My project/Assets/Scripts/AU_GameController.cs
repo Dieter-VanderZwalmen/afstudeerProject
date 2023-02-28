@@ -6,7 +6,8 @@ using Photon.Pun;
 public class AU_GameController : MonoBehaviour
 {
     PhotonView myPV;
-
+    public static List<PhotonView> allPlayers = new List<PhotonView>();
+    public List<int> bodiesFoundActorNumber = new List<int>();
     int whichPlayerIsImposter;
 
     // Start is called before the first frame update
@@ -18,6 +19,12 @@ public class AU_GameController : MonoBehaviour
             PickImposter();
         }
     }
+    
+    public void AddToBodiesFoundActorNumber(int actorNumber)
+    {
+        bodiesFoundActorNumber.Add(actorNumber);
+    }
+
     void PickImposter()
     {
         whichPlayerIsImposter = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
