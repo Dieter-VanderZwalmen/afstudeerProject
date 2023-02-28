@@ -251,7 +251,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             return;
         }
-
         //Debug.Log(targets.Count);
         if (targets.Count == 0)
         {
@@ -263,23 +262,15 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             {
                 return;
             }
-                
-
             transform.position = targets[targets.Count - 1].transform.position;
             //targets[targets.Count - 1].Die();  --> non multiplayer
-
-            //voor jezelf de bodiesFoundActorNumber juist zetten (aangezien dit niet gebeurt in de RPC_kill)
-            
-            
-
-            targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber, this.bodiesFoundActorNumber);
+            targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber);
             targets.RemoveAt(targets.Count - 1);
-
         }
     }
         
     [PunRPC]
-    void RPC_Kill(int actorNumber, List<int> bodiesFoundActorNumber )
+    void RPC_Kill(int actorNumber)
     {
         Debug.Log(actorNumber);
         Debug.Log(this.bodiesFoundActorNumber);
