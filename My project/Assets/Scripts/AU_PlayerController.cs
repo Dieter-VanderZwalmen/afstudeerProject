@@ -396,4 +396,12 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             direction = (float)stream.ReceiveNext();
         }
     }
+
+    [PunRPC]
+    void RPC_DeadBodyReported(int actorNumber)
+    {
+        //load the votingscreen for all players through the photonnetwork
+        PhotonNetwork.LoadLevel("VotingScreen");
+
+    }
 }

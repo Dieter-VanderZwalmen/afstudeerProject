@@ -25,14 +25,8 @@ public class VotingManager : MonoBehaviour
 
     public void DeadBodyReported(PhotonView pv, int actorNumber)
     {
-        pv.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
-    }
-
-    [PunRPC]
-    void RPC_DeadBodyReported(int actorNumber)
-    {
         _reportedBodiesList.Add(actorNumber);
-        SceneManager.LoadScene("VotingScreen");
+        pv.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
     }
 
     private void PopulatePlayerList()
