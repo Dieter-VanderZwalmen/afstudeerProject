@@ -61,6 +61,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     [SerializeField] lightcaster myLightCaster;
 
     [SerializeField] private TextMeshProUGUI nameText;
+    public string myNickname;
 
     private void Awake()
     {
@@ -106,6 +107,9 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         myAnim = GetComponent<Animator>();
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
+
+        
+
         if (!myPV.IsMine)
         {
             myCamera.gameObject.SetActive(false);
@@ -115,7 +119,10 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         }
         if (myColor == Color.clear)
             myColor = Color.white;
+
         myAvatarSprite.color = myColor;
+
+        SetName();
 
         if (sceneName == "StartGame")
         {
@@ -124,9 +131,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
             myLightCaster.enabled = false;
         }
 
-        if (photonView.IsMine) {return;}
-
-        SetName();
+        
 
         allBodies = new List<Transform>();
 
@@ -164,8 +169,20 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     }
 
     private void SetName(){
-        nameText.text = photonView.Owner.NickName;
+       // nameText.text = myNickname;
+       nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
     }
+
+    public void SetColorAsNickname(string nickname){
+        Debug.Log("Set color as nickname");
+        Debug.Log("Nickname: " + nickname);
+        //myNickname = nickname;
+        PhotonNetwork.LocalPlayer.NickName = nickname;
+        Debug.Log("My Mickname: " + PhotonNetwork.LocalPlayer.NickName);
+
+
+    }
+
     public void SetColor(Color newColor)
     {
         myColor = newColor;
