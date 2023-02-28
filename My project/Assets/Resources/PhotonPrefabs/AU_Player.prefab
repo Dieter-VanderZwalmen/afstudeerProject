@@ -494,6 +494,7 @@ MonoBehaviour:
     m_Flags: 0
   myCollider: {fileID: 5613005126089347639}
   bodyPrefab: {fileID: 8982499816898648969, guid: 3922e441fb2f6da48b33d2c205c1c9d2, type: 3}
+  bodiesFoundActorNumber: 
   REPORT:
     m_Name: REPORT
     m_Type: 0

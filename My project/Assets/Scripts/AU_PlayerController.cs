@@ -46,7 +46,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     public static List<Transform> allBodies;
 
     List<Transform> bodiesFound;
-    List<int> bodiesFoundActorNumber;
+    public List<int> bodiesFoundActorNumber;
 
     [SerializeField] InputAction REPORT;
     [SerializeField] LayerMask ignoreForBody;
@@ -131,7 +131,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
         bodiesFound = new List<Transform>();
 
-        this.bodiesFoundActorNumber = new List<int>();
+        bodiesFoundActorNumber = new List<int>();
     }
 
     // Update is called once per frame
@@ -231,10 +231,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             {
                 if (targets[targets.Count - 1].isDead)
                     return;
-
                 transform.position = targets[targets.Count - 1].transform.position;
                 //targets[targets.Count - 1].Die();  --> non multiplayer
-                
                 targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
                 targets.RemoveAt(targets.Count - 1);
             }
@@ -264,19 +262,16 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             }
             transform.position = targets[targets.Count - 1].transform.position;
             //targets[targets.Count - 1].Die();  --> non multiplayer
-            targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber);
+            targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
+            bodiesFoundActorNumber.Add(targets[targets.Count - 1].myPV.Owner.ActorNumber);
+            Debug.Log(bodiesFoundActorNumber);
             targets.RemoveAt(targets.Count - 1);
         }
     }
         
     [PunRPC]
-    void RPC_Kill(int actorNumber)
+    void RPC_Kill()
     {
-        Debug.Log(actorNumber);
-        Debug.Log(this.bodiesFoundActorNumber);
-        bodiesFoundActorNumber.Add(actorNumber);
-        this.bodiesFoundActorNumber = bodiesFoundActorNumber;
-        Debug.Log(bodiesFoundActorNumber[0]);
         Die();
     }
 
@@ -300,23 +295,18 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         foreach(Transform body in allBodies)
         {
-            RaycastHit hit;
-            Ray ray = new Ray(transform.position, body.position - transform.position);
-            Debug.DrawRay(transform.position, body.position - transform.position, Color.cyan);
-            if(Physics.Raycast(ray, out hit, 1000f, ~ignoreForBody))
+            if (Vector2.Distance(transform.position, body.position) < 5f)
             {
-                
-                if (hit.transform == body)
+                if (!bodiesFound.Contains(body))
                 {
-                    //Debug.Log(hit.transform.name);
-                    //Debug.Log(bodiesFound.Count);
-                    if (bodiesFound.Contains(body.transform))
-                        return;
-                    bodiesFound.Add(body.transform);
+                    bodiesFound.Add(body);
                 }
-                else
-                {                   
-                    bodiesFound.Remove(body.transform);
+            }
+            else
+            {
+                if (bodiesFound.Contains(body))
+                {
+                    bodiesFound.Remove(body);
                 }
             }
         }
@@ -367,17 +357,18 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         //Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber[0]);
         //Debug.Log("in Reportbodyfunction is bodiesfound " + bodiesFound[0]);
-        if (bodiesFound == null)
+        if (bodiesFoundActorNumber == null)
         {    
             Debug.Log("bodiesfound is null");
             return;
         }
-        if (bodiesFound.Count == 0)
+        if (bodiesFoundActorNumber.Count == 0)
         {
             Debug.Log("bodiesfound is 0");
             return;
         }
         Debug.Log("here toch");
+        Debug.Log(bodiesFound);
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
