@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
-public class AU_PlayerController : MonoBehaviour, IPunObservable
+public class AU_PlayerController : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
@@ -58,6 +59,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     PhotonView myPV;
     [SerializeField] GameObject lightMask;
     [SerializeField] lightcaster myLightCaster;
+
+    [SerializeField] private TextMeshProUGUI nameText;
 
     private void Awake()
     {
@@ -121,6 +124,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             myLightCaster.enabled = false;
         }
 
+        if (photonView.IsMine) {return;}
+
+        SetName();
+
         allBodies = new List<Transform>();
 
         bodiesFound = new List<Transform>();
@@ -156,6 +163,9 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myRB.velocity = movementInput * movementSpeed;
     }
 
+    private void SetName(){
+        nameText.text = photonView.Owner.NickName;
+    }
     public void SetColor(Color newColor)
     {
         myColor = newColor;
