@@ -131,7 +131,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
         bodiesFound = new List<Transform>();
 
-        bodiesFoundActorNumber = new List<int>();
+        this.bodiesFoundActorNumber = new List<int>();
     }
 
     // Update is called once per frame
@@ -234,6 +234,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
                 transform.position = targets[targets.Count - 1].transform.position;
                 //targets[targets.Count - 1].Die();  --> non multiplayer
+                
                 targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
                 targets.RemoveAt(targets.Count - 1);
             }
@@ -243,33 +244,47 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     public void KillTarget()
     {
         if (!myPV.IsMine)
+        {
             return;
+        }
         if (!isImposter)
+        {
             return;
+        }
 
-            //Debug.Log(targets.Count);
-            if (targets.Count == 0)
-                return;
-            else
+        //Debug.Log(targets.Count);
+        if (targets.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            if (targets[targets.Count - 1].isDead)
             {
-                if (targets[targets.Count - 1].isDead)
-                    return;
+                return;
+            }
+                
 
-                transform.position = targets[targets.Count - 1].transform.position;
-                //targets[targets.Count - 1].Die();  --> non multiplayer
-                targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber);
-                targets.RemoveAt(targets.Count - 1);
+            transform.position = targets[targets.Count - 1].transform.position;
+            //targets[targets.Count - 1].Die();  --> non multiplayer
+
+            //voor jezelf de bodiesFoundActorNumber juist zetten (aangezien dit niet gebeurt in de RPC_kill)
+            
+            
+
+            targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber, this.bodiesFoundActorNumber);
+            targets.RemoveAt(targets.Count - 1);
 
         }
     }
-
-
+        
     [PunRPC]
-    void RPC_Kill(int actorNumber)
+    void RPC_Kill(int actorNumber, List<int> bodiesFoundActorNumber )
     {
         Debug.Log(actorNumber);
-        Debug.Log(bodiesFoundActorNumber);
+        Debug.Log(this.bodiesFoundActorNumber);
         bodiesFoundActorNumber.Add(actorNumber);
+        this.bodiesFoundActorNumber = bodiesFoundActorNumber;
         Debug.Log(bodiesFoundActorNumber[0]);
         Die();
     }
@@ -316,16 +331,27 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         }
     }
 
-    private void ReportBody(InputAction.CallbackContext obj)
+    public void ReportBody(InputAction.CallbackContext obj)
     {
+        //Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber[0]);
+        //Debug.Log("in Reportbodyfunction is bodiesfound " + bodiesFound[0]);
         if (bodiesFound == null)
+        {
+            Debug.Log("bodiesfound is null");
             return;
+        }
         if (bodiesFound.Count == 0)
+        {
+            Debug.Log("bodiesfound is 0");
             return;
+        }
+        Debug.Log("here toch");
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
+        Debug.Log("in Reportbodyfunction is" + this.bodiesFoundActorNumber[this.bodiesFoundActorNumber.Count - 1]);
+        votingManager.DeadBodyReported(myPV, this.bodiesFoundActorNumber[this.bodiesFoundActorNumber.Count - 1]);
     }
 
     void Interact(InputAction.CallbackContext context)
