@@ -108,7 +108,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
 
-        
+        SetName();
 
         if (!myPV.IsMine)
         {
@@ -122,7 +122,6 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
 
         myAvatarSprite.color = myColor;
 
-        SetName();
 
         if (sceneName == "StartGame")
         {
@@ -169,18 +168,14 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     }
 
     private void SetName(){
-       // nameText.text = myNickname;
        nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
     }
 
     public void SetColorAsNickname(string nickname){
-        Debug.Log("Set color as nickname");
-        Debug.Log("Nickname: " + nickname);
-        //myNickname = nickname;
         PhotonNetwork.LocalPlayer.NickName = nickname;
-        Debug.Log("My Mickname: " + PhotonNetwork.LocalPlayer.NickName);
+        nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
 
-
+        Debug.Log("My Nickname: " + PhotonNetwork.LocalPlayer.NickName);
     }
 
     public void SetColor(Color newColor)
