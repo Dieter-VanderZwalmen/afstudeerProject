@@ -17,12 +17,14 @@ public class StartMenu : MonoBehaviour
         Button buttonHowToPlay = root.Q<Button>("HowToPlay");
         Button buttonPlay = root.Q<Button>("Play");
         Button buttonSettings = root.Q<Button>("Settings");
+        Button buttonSetting = root.Q<Button>("Settings");
         Button buttonSound = root.Q<Button>("Sound");
         Button buttonQuit = root.Q<Button>("Quit");
 
         buttonHowToPlay.clickable.clicked += () => HowToPlay();
         buttonPlay.clickable.clicked += () => OnOnlineClick();
         buttonSettings.clickable.clicked += () => Settings();
+        buttonSetting.clickable.clicked += () => Setting();
         buttonSound.clickable.clicked += () => Sound();
         buttonQuit.clickable.clicked += () =>  Quit();
     }
@@ -42,6 +44,12 @@ public class StartMenu : MonoBehaviour
         SceneManager.LoadScene("HowToPlay");
     }
 
+    public void Setting()
+    {
+        // Handle Setting button click
+        Debug.Log("Setting button clicked");
+        SceneManager.LoadScene("Settings");
+    }
     public void Settings()
     {
         // Handle Settings button click
