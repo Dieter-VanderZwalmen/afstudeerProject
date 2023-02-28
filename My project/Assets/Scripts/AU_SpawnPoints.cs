@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AU_GameController : MonoBehaviour
+public class AU_SpawnPoints : MonoBehaviour
 {
-    public static AU_GameController instance;
+    public static AU_SpawnPoints instance;
 
     public Transform[] spawnPoints;
 
