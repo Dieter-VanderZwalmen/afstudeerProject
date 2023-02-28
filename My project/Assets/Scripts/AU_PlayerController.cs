@@ -257,9 +257,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
                 transform.position = targets[targets.Count - 1].transform.position;
                 //targets[targets.Count - 1].Die();  --> non multiplayer
-                targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
-                Debug.Log(targets[targets.Count - 1].myPV.Owner.ActorNumber);
-                bodiesFoundActorNumber.Add(targets[targets.Count - 1].myPV.Owner.ActorNumber);
+                targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber);
                 targets.RemoveAt(targets.Count - 1);
 
         }
@@ -267,8 +265,12 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
 
     [PunRPC]
-    void RPC_Kill()
+    void RPC_Kill(int actorNumber)
     {
+        Debug.Log(actorNumber);
+        Debug.Log(bodiesFoundActorNumber);
+        bodiesFoundActorNumber.Add(actorNumber);
+        Debug.Log(bodiesFoundActorNumber[0]);
         Die();
     }
 
@@ -346,14 +348,18 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     public void ReportBody()
     {
-        Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber);
-        Debug.Log("in Reportbodyfunction is bodiesfound " + bodiesFound);
+        //Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber[0]);
+        //Debug.Log("in Reportbodyfunction is bodiesfound " + bodiesFound[0]);
         if (bodiesFound == null)
+        {    
             Debug.Log("bodiesfound is null");
             return;
+        }
         if (bodiesFound.Count == 0)
+        {
             Debug.Log("bodiesfound is 0");
             return;
+        }
         Debug.Log("here toch");
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
