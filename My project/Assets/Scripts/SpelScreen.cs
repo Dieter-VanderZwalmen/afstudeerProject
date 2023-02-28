@@ -19,26 +19,26 @@ public class SpelScreen : MonoBehaviour
         Button buttonUse = root.Q<Button>("Use");
         Button buttonKill = root.Q<Button>("Kill");
 
-        buttonSettings.clickable.clicked += () => Settings();
-        buttonMap.clickable.clicked += () => Map();
+        //buttonSettings.clickable.clicked += () => Settings();
+        //buttonMap.clickable.clicked += () => Map();
         buttonReport.clickable.clicked += () => Report();
         buttonUse.clickable.clicked += () => Use();
         buttonKill.clickable.clicked += () => Kill();
     }
 
-    public void Settings()
+    /*public void Settings()
     {
         // Handle Settings button click
         Debug.Log("Settings button clicked");
         SceneManager.LoadScene("Settings");
-    }
+    }*/
 
-    public void Map()
+    /*public void Map()
     {
         // Handle Map button click
         Debug.Log("Map button clicked");
         SceneManager.LoadScene("Map");
-    }
+    }*/
 
     public void Report()
     {
