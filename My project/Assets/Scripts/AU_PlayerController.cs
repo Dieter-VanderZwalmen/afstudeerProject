@@ -390,10 +390,20 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(direction);
+            stream.SendNext(isImposter);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
+            this.isImposter = (bool)stream.ReceiveNext();
+        }
+    }
+
+    public void BecomeImposter(int ImposterNumber)
+    {
+        if(PhotonNetwork.LocalPlayer == PhotonNetwork.PlayerList[ImposterNumber])
+        {
+            isImposter = true;
         }
     }
 
