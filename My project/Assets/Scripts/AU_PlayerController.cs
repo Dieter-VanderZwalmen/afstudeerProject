@@ -91,6 +91,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
         
@@ -107,6 +108,10 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
 
+        //set Color to white
+        
+        SetColor(Color.white);
+        SetColorAsNickname("White");
         SetName();
 
         if (!myPV.IsMine)
