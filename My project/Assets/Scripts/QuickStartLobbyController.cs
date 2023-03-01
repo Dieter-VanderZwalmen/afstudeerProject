@@ -15,8 +15,8 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 
     public void QuickStart()
     {
-        /*PhotonNetwork.JoinRandomRoom();*/
-        CreateRoom();
+        PhotonNetwork.JoinRandomRoom();
+
         Debug.Log("Quick Start");
     }
 
