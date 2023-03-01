@@ -156,13 +156,23 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         myAnim.SetFloat("Speed", movementInput.magnitude);
         if (movementInput.x != 0)
         {
+            //Draai enkel het object Player.
+            //Blijf ook gedraaid staan.
+            
             direction = Mathf.Sign(movementInput.x);
+            Transform player = transform.Find("Player");
+            if (player != null)
+            {
+                player.localScale = new Vector3(direction, 1, 1);
+            }
+
+
         }
 
-        if(allBodies.Count > 0)
+        /*if (allBodies.Count > 0)
         {
             BodySearch();
-        }
+        }*/
 
         mousePositionInput = MOUSE.ReadValue<Vector2>();
     }
