@@ -101,7 +101,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             localPlayer = this;
             this.actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-            AU_GameController.allPlayers.Add(myPV);
             Debug.Log(AU_GameController.allPlayers);
         }
         myCamera = transform.GetChild(2).GetComponent<Camera>();
@@ -133,7 +132,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
         bodiesFound = new List<Transform>();
 
-        gameController.AddToPlayerList(myPV);
+        gameController.AddToPlayerList(this);
     }
 
     // Update is called once per frame
@@ -404,6 +403,5 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         //load the votingscreen for all players through the photonnetwork
         PhotonNetwork.LoadLevel("VotingScreen");
-        votingManager.PopulatePlayerList();
     }
 }

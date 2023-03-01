@@ -349,7 +349,6 @@ GameObject:
   - component: {fileID: 908432753}
   - component: {fileID: 908432755}
   - component: {fileID: 908432754}
-  - component: {fileID: 908432756}
   m_Layer: 5
   m_Name: VotingScreen
   m_TagString: Untagged
@@ -417,21 +416,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908432752}
   m_CullTransparentMesh: 1
---- !u!114 &908432756
+--- !u!1 &1138385288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138385290}
+  - component: {fileID: 1138385289}
+  m_Layer: 0
+  m_Name: VotingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1138385289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908432752}
+  m_GameObject: {fileID: 1138385288}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a0e14bdfb5eb654b9d9e4dea571f1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _votePlayerItemPrefab: {fileID: 0}
+  _votePlayerItemPrefab: {fileID: 3928914515097809041, guid: 18205446758e2494198c399b4e0c9960, type: 3}
   _votePlayerItemContainer: {fileID: 1871109395}
   _skipVoteButton: {fileID: 2065054151}
+--- !u!4 &1138385290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138385288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.357243, y: -2.8246002, z: -0.022449166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1173678334
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +661,7 @@ GameObject:
   - component: {fileID: 1871109397}
   - component: {fileID: 1871109396}
   m_Layer: 5
-  m_Name: VotingContent
+  m_Name: VotePlayerItemContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

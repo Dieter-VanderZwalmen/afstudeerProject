@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System.IO;
 
 public class VotingManager : MonoBehaviour
 {
@@ -27,6 +28,14 @@ public class VotingManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        Debug.Log("VotingManager Start");
+        Debug.Log("_votePlayerItemContainer: " + _votePlayerItemContainer);
+        Debug.Log("_votePlayerItemPrefab: " + _votePlayerItemPrefab);
+        PopulatePlayerList();
+    }
+
     public bool BodyReported(int actorNumber)
     {
         return _reportedBodiesList.Contains(actorNumber);
@@ -41,7 +50,7 @@ public class VotingManager : MonoBehaviour
         pv.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
     }
 
-    private void PopulatePlayerList()
+    public void PopulatePlayerList()
     {
         //clear the list
         for (int i = 0; i < _playersList.Count; i++)
@@ -50,13 +59,13 @@ public class VotingManager : MonoBehaviour
         }
 
         _playersList.Clear();
-
+        
         //populate the list
         foreach (var player in AU_GameController.allPlayers)
         {
             VotePlayerItem votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
-            votePlayerItem.Initialize(this, player.GetComponent<AU_PlayerController>());
-            if (player.GetComponent<AU_PlayerController>().isDead)
+            votePlayerItem.Initialize(this, player);
+            if (player.isDead)
             {
                 votePlayerItem.updateStatus("Dead");
                 votePlayerItem.ToggleButton(false);

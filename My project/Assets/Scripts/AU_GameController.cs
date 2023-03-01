@@ -6,7 +6,7 @@ using Photon.Pun;
 public class AU_GameController : MonoBehaviour
 {
     PhotonView myPV;
-    public static List<PhotonView> allPlayers = new List<PhotonView>();
+    public static List<AU_PlayerController> allPlayers = new List<AU_PlayerController>();
     public List<int> bodiesFoundActorNumber = new List<int>();
     int whichPlayerIsImposter;
 
@@ -25,7 +25,7 @@ public class AU_GameController : MonoBehaviour
         bodiesFoundActorNumber.Add(actorNumber);
     }
 
-    public void AddToPlayerList(PhotonView player)
+    public void AddToPlayerList(AU_PlayerController player)
     {
         allPlayers.Add(player);
     }
