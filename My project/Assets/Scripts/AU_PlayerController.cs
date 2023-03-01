@@ -100,8 +100,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         {
             localPlayer = this;
         }
-        myCamera = transform.GetChild(2).GetComponent<Camera>();
-        Debug.Log(myCamera);
+        myCamera = transform.GetChild(1).GetComponent<Camera>();
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
@@ -112,9 +111,17 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
 
         if (!myPV.IsMine)
         {
+            //disable child object named fov
+            transform.GetChild(2).gameObject.SetActive(false);
+            //set the layer to behindMask
+            int behindMaskLayerNumber = LayerMask.NameToLayer("BehindMask");
+            myPV.gameObject.layer = behindMaskLayerNumber;
+            myPV.gameObject.transform.GetChild(0).gameObject.layer = behindMaskLayerNumber;
+            myPV.gameObject.transform.GetChild(0).GetChild(0).gameObject.layer = behindMaskLayerNumber;
+
             myCamera.gameObject.SetActive(false);
-            lightMask.SetActive(false);
-            myLightCaster.enabled = false;
+            //lightMask.SetActive(false);
+            //myLightCaster.enabled = false;
             return;
         }
         if (myColor == Color.clear)

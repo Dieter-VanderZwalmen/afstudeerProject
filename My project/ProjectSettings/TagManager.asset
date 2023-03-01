@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Interactable
+  - Transparent
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - Wall
   - 
   - Ghost
-  - 
-  - 
-  - 
+  - Mask
+  - BehindMask
+  - Black
   - 
   - 
   - 
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 4199044675
     locked: 0
