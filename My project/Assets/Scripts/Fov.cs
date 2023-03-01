@@ -7,11 +7,21 @@ public class Fov : MonoBehaviour
     private Mesh mesh;
     private Vector3 origin;
     public LayerMask layer;
+    private float viewDistance;
+    private float fov;
+    private int rayCount;
+    private float currentAngle;
+
 
     private void Start()
     {
+        viewDistance = 15f;
+        fov = 360f;
+        rayCount = 360;
+        currentAngle = 0f;
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
+       
     }
 
     // Start is called before the first frame update
@@ -19,11 +29,8 @@ public class Fov : MonoBehaviour
     {
         transform.position = Vector3.zero;
         origin = transform.parent.position;
-        float fov = 360f;
-        int rayCount = 360;
-        float currentAngle = 0f;
         float angleIncrease = fov / rayCount;
-        float viewDistance = 15f;
+        
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
@@ -33,48 +40,48 @@ public class Fov : MonoBehaviour
 
         int vertexIndex = 1;
         int triangleIndex = 0;
-for (int i = 0; i <= rayCount; i++)
-{
-    Vector3 vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
-    RaycastHit raycastHit;
-    bool hasHit =   Physics.Raycast(
-        origin,
-        GetVectorFromAngle(currentAngle),
-        out raycastHit,
-        viewDistance,
-        layer
-    );
+        for (int i = 0; i <= rayCount; i++)
+        {
+            Vector3 vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
+            RaycastHit raycastHit;
+            bool hasHit = Physics.Raycast(
+                origin,
+                GetVectorFromAngle(currentAngle),
+                out raycastHit,
+                viewDistance,
+                layer
+            );
 
-    //loop over alle hits
-    //indien hit
-    //check of de tag Wall
-    //zoja 
-    //pak kleinste afstand
-    //vertex = raycastHit.point;
-    
-  
-    if (!hasHit)
-    {
-        vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
-    }
-    else
-    {
-        vertex = raycastHit.point;
-    }
-    vertices[vertexIndex] = vertex;
+            //loop over alle hits
+            //indien hit
+            //check of de tag Wall
+            //zoja
+            //pak kleinste afstand
+            //vertex = raycastHit.point;
 
-    if (i > 0)
-    {
-        triangles[triangleIndex + 0] = 0;
-        triangles[triangleIndex + 1] = vertexIndex - 1;
-        triangles[triangleIndex + 2] = vertexIndex;
 
-        triangleIndex += 3;
-    }
+            if (!hasHit)
+            {
+                vertex = origin + GetVectorFromAngle(currentAngle) * viewDistance;
+            }
+            else
+            {
+                vertex = raycastHit.point;
+            }
+            vertices[vertexIndex] = vertex;
 
-    vertexIndex++;
-    currentAngle -= angleIncrease;
-}
+            if (i > 0)
+            {
+                triangles[triangleIndex + 0] = 0;
+                triangles[triangleIndex + 1] = vertexIndex - 1;
+                triangles[triangleIndex + 2] = vertexIndex;
+
+                triangleIndex += 3;
+            }
+
+            vertexIndex++;
+            currentAngle -= angleIncrease;
+        }
 
         mesh.vertices = vertices;
         mesh.uv = uv;
@@ -87,4 +94,25 @@ for (int i = 0; i <= rayCount; i++)
         float angleRad = angle * (Mathf.PI / 180f);
         return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
     }
+
+    //reduce vision
+    public void ReduceVision()
+    {
+        Debug.Log("ReduceVision");
+        StartCoroutine(DecreaseVision());
+    }
+    //decreses vision
+    //every frame reduce the view distance by 1f
+    //when view distance is 0f stop the coroutine
+    IEnumerator DecreaseVision()
+    {
+        Debug.Log("DecreaseVision");
+        
+        while (this.viewDistance > 2f)
+        {
+            viewDistance -= 0.1f;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
 }
