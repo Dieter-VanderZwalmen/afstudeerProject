@@ -133,8 +133,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         if (sceneName == "StartGame")
         {
             myCamera.gameObject.SetActive(false);
-            lightMask.SetActive(false);
-            myLightCaster.enabled = false;
+            
         }
 
         
