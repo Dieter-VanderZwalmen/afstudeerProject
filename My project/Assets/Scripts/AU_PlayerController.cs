@@ -404,5 +404,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         //load the votingscreen for all players through the photonnetwork
         PhotonNetwork.LoadLevel("VotingScreen");
+        votingManager.PopulatePlayerList();
     }
 }
