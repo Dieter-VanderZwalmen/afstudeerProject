@@ -40,7 +40,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     List<AU_PlayerController> targets;
     [SerializeField] Collider myCollider;
 
-    bool isDead;
+    public bool isDead;
 
     [SerializeField] GameObject bodyPrefab;
 
@@ -132,6 +132,8 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies = new List<Transform>();
 
         bodiesFound = new List<Transform>();
+
+        gameController.AddToPlayerList(myPV);
     }
 
     // Update is called once per frame
@@ -314,7 +316,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     public void ReportBody(InputAction.CallbackContext obj)
     {
         if (gameController.bodiesFoundActorNumber == null)
-        {
+        {    
             Debug.Log("bodiesfound is null");
             return;
         }
@@ -323,12 +325,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             Debug.Log("bodiesfound is 0");
             return;
         }
-        Debug.Log("here toch");
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        Debug.Log("in Reportbodyfunction is" + gameController.bodiesFoundActorNumber[gameController.bodiesFoundActorNumber.Count - 1]);
         votingManager.DeadBodyReported(myPV, gameController.bodiesFoundActorNumber[gameController.bodiesFoundActorNumber.Count - 1]);
     }
 
@@ -352,8 +352,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     public void ReportBody()
     {
-        //Debug.Log("in Reportbodyfunction is" + bodiesFoundActorNumber[0]);
-        //Debug.Log("in Reportbodyfunction is bodiesfound " + bodiesFound[0]);
         if (gameController.bodiesFoundActorNumber == null)
         {    
             Debug.Log("bodiesfound is null");
@@ -368,7 +366,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        Debug.Log("in Reportbodyfunction is" + gameController.bodiesFoundActorNumber[gameController.bodiesFoundActorNumber.Count - 1]);
         votingManager.DeadBodyReported(myPV, gameController.bodiesFoundActorNumber[gameController.bodiesFoundActorNumber.Count - 1]);
     }
 
@@ -407,6 +404,5 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     {
         //load the votingscreen for all players through the photonnetwork
         PhotonNetwork.LoadLevel("VotingScreen");
-
     }
 }

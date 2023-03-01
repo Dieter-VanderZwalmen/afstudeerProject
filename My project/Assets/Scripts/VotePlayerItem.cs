@@ -10,11 +10,15 @@ public class VotePlayerItem : MonoBehaviour
     [SerializeField] private GameObject _playerNameText;
     [SerializeField] private GameObject _statusText;
 
-    //lol 2
     private int _actorNumber;
+    private PhotonView _pv;
 
     public int GetActorNumber{
         get { return _actorNumber; }
+    }
+
+    public string GetPlayerName{
+        get { return _playerNameText.GetComponent<Text>().text; }
     }
 
     private Button _voteButton;
@@ -28,7 +32,7 @@ public class VotePlayerItem : MonoBehaviour
 
     private void OnVotePressed()
     {
-        _votingManager.CastVote(_actorNumber);
+        _votingManager.CastVote(_actorNumber, _pv);
     }
 
     public void Initialize(VotingManager votingManager, AU_PlayerController player)

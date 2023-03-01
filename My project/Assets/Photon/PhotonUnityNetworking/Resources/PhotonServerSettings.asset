@@ -43,6 +43,8 @@ MonoBehaviour:
   - RPC_DeadBodyReported
   - RPC_Play
   - RPC_SyncImposter
+  - RPC_CastPlayerVote
+  - RPC_KickPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

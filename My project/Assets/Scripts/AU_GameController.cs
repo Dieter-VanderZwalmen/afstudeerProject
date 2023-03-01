@@ -25,6 +25,11 @@ public class AU_GameController : MonoBehaviour
         bodiesFoundActorNumber.Add(actorNumber);
     }
 
+    public void AddToPlayerList(PhotonView player)
+    {
+        allPlayers.Add(player);
+    }
+
     void PickImposter()
     {
         whichPlayerIsImposter = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
