@@ -26,7 +26,7 @@ public class VotePlayerItem : MonoBehaviour
     private Button _voteButton;
     private VotingManager _votingManager;
 
-    private void start()
+    private void Awake()
     {
         _voteButton = GetComponentInChildren<Button>();
         Debug.Log("vote button in _voteButton: " + _voteButton);
@@ -49,6 +49,7 @@ public class VotePlayerItem : MonoBehaviour
 
     public void updateStatus(string status)
     {
+        Debug.Log("status: " + status);
         _statusText.text = status;
     }
 
