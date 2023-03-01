@@ -8,20 +8,13 @@ public class Fov : MonoBehaviour
     private Vector3 origin;
     public LayerMask layer;
     private float viewDistance;
-    private float fov;
-    private int rayCount;
-    private float currentAngle;
-
 
     private void Start()
     {
         viewDistance = 15f;
-        fov = 360f;
-        rayCount = 360;
-        currentAngle = 0f;
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-       
+        //ReduceVision();
     }
 
     // Start is called before the first frame update
@@ -29,6 +22,9 @@ public class Fov : MonoBehaviour
     {
         transform.position = Vector3.zero;
         origin = transform.parent.position;
+        float fov = 360f;
+        int rayCount = 360;
+        float currentAngle = 0f;
         float angleIncrease = fov / rayCount;
         
 
@@ -98,7 +94,6 @@ public class Fov : MonoBehaviour
     //reduce vision
     public void ReduceVision()
     {
-        Debug.Log("ReduceVision");
         StartCoroutine(DecreaseVision());
     }
     //decreses vision
@@ -108,10 +103,10 @@ public class Fov : MonoBehaviour
     {
         Debug.Log("DecreaseVision");
         
-        while (this.viewDistance > 2f)
+        while (this.viewDistance > 0f)
         {
             viewDistance -= 0.1f;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
