@@ -7096,9 +7096,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2133825730}
     m_Modifications:
+    - target: {fileID: 336749341932123295, guid: 739698cff42540b45ba933826b79525b, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1376403616999189681, guid: 739698cff42540b45ba933826b79525b, type: 3}
       propertyPath: m_Name
       value: Numbergame Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376403616999189681, guid: 739698cff42540b45ba933826b79525b, type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3023606153705082839, guid: 739698cff42540b45ba933826b79525b, type: 3}
       propertyPath: m_RootOrder
@@ -12727,7 +12735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2133825730}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Interactables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
