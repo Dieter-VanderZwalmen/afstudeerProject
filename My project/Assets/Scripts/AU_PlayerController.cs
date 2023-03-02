@@ -29,7 +29,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     SpriteRenderer myAvatarSprite;
 
     //Role
-    [SerializeField] bool isImposter;
+    [SerializeField] public bool isImposter;
     [SerializeField] InputAction KILL;
     float killInput;
 
@@ -402,10 +402,20 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(direction);
+            stream.SendNext(isImposter);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
+            this.isImposter = (bool)stream.ReceiveNext();
+        }
+    }
+
+    public void BecomeImposter(int ImposterNumber)
+    {
+        if(PhotonNetwork.LocalPlayer == PhotonNetwork.PlayerList[ImposterNumber])
+        {
+            isImposter = true;
         }
     }
 }
