@@ -5,8 +5,14 @@ using UnityEngine;
 public class mapPanel : MonoBehaviour
 {
     //gameobject meegeven van de map
-    [SerializeField]
-    GameObject map;
+    [SerializeField] GameObject map;
+
+    [SerializeField] GameObject doors;
+
+
+
+    //import a script 
+
 
     //maak map visible
 
@@ -21,13 +27,29 @@ public class mapPanel : MonoBehaviour
         map.SetActive(false);
     }
 
-    public void debugLog()
+
+
+    public void DisableLights()
     {
-        Debug.Log("test");
+        Debug.Log("Sabotaging the lights");
+        //in the script Fov call the function ReduceVision
+        //get Component AU_PLAYER
+        
+        //get Component Fov
+        //Fov.ReduceVision();
+
     }
 
-    public void sabotage()
-    {
-        Debug.Log("Sabotage");
+    public void CloseDoors() {
+       StartCoroutine(Doors());
+
+    }
+    //coroutine to close doors
+    //maakt dingen met wachten makkelijker
+    IEnumerator Doors() {
+        doors.SetActive(true);
+        //wait 5seconds
+        yield return new WaitForSeconds(5);
+        doors.SetActive(false);
     }
 }
