@@ -7,6 +7,10 @@ using UnityEngine.UIElements;
 
 public class SpelScreen : MonoBehaviour
 {
+
+    
+    [SerializeField] GameObject miniMap;
+
     public static AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
 
     private void OnEnable()
@@ -37,7 +41,10 @@ public class SpelScreen : MonoBehaviour
     {
         // Handle Map button click
         Debug.Log("Map button clicked");
-        SceneManager.LoadScene("Map");
+        miniMap.SetActive(true);
+
+
+
     }
 
     public void Report()
