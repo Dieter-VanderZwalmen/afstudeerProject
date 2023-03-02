@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.45, y: -0.09, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61,7 +61,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -281,7 +281,7 @@ RectTransform:
   m_GameObject: {fileID: 2123540778330637140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7644813001435771677}
@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.008, y: 0.5}
+  m_AnchoredPosition: {x: 0.008, y: 0.2}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3697920214342774026
@@ -418,10 +418,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3876034
-  m_Height: 1.0134441
+  m_Radius: 0.114748694
+  m_Height: 0.31800294
   m_Direction: 1
-  m_Center: {x: -0.008991718, y: -0.0337407, z: 0}
+  m_Center: {x: 0.011768125, y: 0.0013946891, z: 0}
 --- !u!114 &-5921047952930951600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
       m_Action: WASD
       m_Flags: 8
     m_Flags: 0
-  movementSpeed: 5
+  movementSpeed: 2
   isImposter: 0
   KILL:
     m_Name: KILL
@@ -597,8 +597,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.3917367
+  m_Center: {x: 0.009521008, y: -0.004729688, z: 0}
 --- !u!114 &3079868843097923290
 MonoBehaviour:
   m_ObjectHideFlags: 0

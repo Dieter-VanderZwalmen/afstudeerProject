@@ -11,7 +11,7 @@ public class Fov : MonoBehaviour
 
     private void Start()
     {
-        viewDistance = 15f;
+        viewDistance = 4f;
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         //ReduceVision();
