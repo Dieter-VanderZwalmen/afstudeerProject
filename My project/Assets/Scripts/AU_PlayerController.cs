@@ -130,11 +130,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies = new List<Transform>();
 
         bodiesFound = new List<Transform>();
-
-        
-
-        gameController.AddToAlivePlayerList(PhotonNetwork.LocalPlayer);
-        Debug.Log(gameController.GetPlayersAlive()[0]);
     }
 
     // Update is called once per frame
@@ -399,6 +394,11 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             isImposter = true;
         }
+    }
+
+    public void AddToAllPlayersList()
+    {
+        gameController.AddPlayer(this);
     }
 
     [PunRPC]

@@ -61,17 +61,15 @@ public class VotingManager : MonoBehaviour
 
         _playersList.Clear();
         //create the list of vote player items and write dead as status for deadplayers and toggle buttons to false for the deadplayers
-        foreach (var player in PhotonNetwork.PlayerList)
+        Debug.Log("AU_GameController.allPlayers.Count: " + AU_GameController.allPlayers.Count + "");
+        foreach (var player in AU_GameController.allPlayers)
         {
             VotePlayerItem votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
-            votePlayerItem.Initialize(this, player.ActorNumber, player.NickName);
-            foreach (var i in gameController.GetBodiesFoundActorNumber())
+            votePlayerItem.Initialize(this, player);
+            if (player.isDead)
             {
-                if (i == player.ActorNumber)
-                {
-                    votePlayerItem.updateStatus("Dead");
-                    votePlayerItem.ToggleButton(false);
-                }
+                votePlayerItem.updateStatus("Dead");
+                votePlayerItem.ToggleButton(false);
             }
             _playersList.Add(votePlayerItem);
         }

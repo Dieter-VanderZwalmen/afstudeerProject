@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class AU_GameController : MonoBehaviour
 {
     public PhotonView myPV;
-    public static Player[] allPlayers = PhotonNetwork.PlayerList;
+    public static List<AU_PlayerController> allPlayers = new List<AU_PlayerController>();
     public static Player[] alivePlayers = PhotonNetwork.PlayerList;
     public List<int> bodiesFoundActorNumber = new List<int>();
     int whichPlayerIsImposter;
@@ -20,11 +20,12 @@ public class AU_GameController : MonoBehaviour
         {
             PickImposter();
         }
+        myPV.RPC("RPC_AddAllPlayersToAllPlayersList", RpcTarget.All);
     }
 
-    void update()
+    public void AddPlayer(AU_PlayerController player)
     {
-        allPlayers = PhotonNetwork.PlayerList;
+        allPlayers.Add(player);
     }
     
     public void AddToBodiesFoundActorNumber(int actorNumber)
@@ -50,11 +51,6 @@ public class AU_GameController : MonoBehaviour
         alivePlayers = tempList.ToArray();
     }
 
-    public Player[] GetPlayersAlive()
-    {
-        return alivePlayers;
-    }
-
     public List<int> GetBodiesFoundActorNumber()
     {
         return bodiesFoundActorNumber;
@@ -72,5 +68,11 @@ public class AU_GameController : MonoBehaviour
     {
         whichPlayerIsImposter = playerNumber;
         AU_PlayerController.localPlayer.BecomeImposter(whichPlayerIsImposter);
+    }
+
+    [PunRPC]
+    void RPC_AddAllPlayersToAllPlayersList()
+    {
+        AU_PlayerController.localPlayer.AddToAllPlayersList();
     }
 }

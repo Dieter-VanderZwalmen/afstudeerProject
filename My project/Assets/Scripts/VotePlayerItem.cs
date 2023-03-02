@@ -37,12 +37,11 @@ public class VotePlayerItem : MonoBehaviour
         _votingManager.CastVote(_actorNumber);
     }
 
-    public void Initialize(VotingManager votingManager, int actorNumber, string playerName)
+    public void Initialize(VotingManager votingManager, AU_PlayerController player)
     {
-        _actorNumber = actorNumber;
-        _playerNameText.text = playerName;
+        _actorNumber = player.actorNumber;
+        _playerNameText.text = player.nickName;
         _statusText.text = "Not Decided";
-        ToggleButton(true);
         _votingManager = votingManager;
     }
 
