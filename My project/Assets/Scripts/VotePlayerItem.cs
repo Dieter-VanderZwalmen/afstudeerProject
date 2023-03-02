@@ -13,14 +13,13 @@ public class VotePlayerItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _statusText;
 
     private int _actorNumber;
-    private PhotonView _pv;
 
     public int GetActorNumber{
         get { return _actorNumber; }
     }
 
     public string GetPlayerName{
-        get { return _playerNameText.GetComponent<Text>().text; }
+        get { return _playerNameText.text; }
     }
 
     private Button _voteButton;
@@ -35,15 +34,15 @@ public class VotePlayerItem : MonoBehaviour
 
     private void OnVotePressed()
     {
-        _votingManager.CastVote(_actorNumber, _pv);
+        _votingManager.CastVote(_actorNumber);
     }
 
-    public void Initialize(VotingManager votingManager, AU_PlayerController player)
+    public void Initialize(VotingManager votingManager, int actorNumber, string playerName)
     {
-        _actorNumber = player.actorNumber;
-        Debug.Log("non component" + _playerNameText);
-        _playerNameText.text = player.nickName;
+        _actorNumber = actorNumber;
+        _playerNameText.text = playerName;
         _statusText.text = "Not Decided";
+        ToggleButton(true);
         _votingManager = votingManager;
     }
 

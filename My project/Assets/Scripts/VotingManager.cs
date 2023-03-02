@@ -10,6 +10,8 @@ using System.IO;
 public class VotingManager : MonoBehaviour
 {
     public static VotingManager Instance;
+    private static AU_GameController gameController = new AU_GameController();
+
     
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
@@ -30,10 +32,9 @@ public class VotingManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("VotingManager Start");
-        Debug.Log("_votePlayerItemContainer: " + _votePlayerItemContainer);
-        Debug.Log("_votePlayerItemPrefab: " + _votePlayerItemPrefab);
+        Debug.Log("in voting manager start");
         PopulatePlayerList();
+        Debug.Log("after populate player list");
     }
 
     public bool BodyReported(int actorNumber)
@@ -59,16 +60,18 @@ public class VotingManager : MonoBehaviour
         }
 
         _playersList.Clear();
-        
-        //populate the list
-        foreach (var player in AU_GameController.allPlayers)
+        //create the list of vote player items and write dead as status for deadplayers and toggle buttons to false for the deadplayers
+        foreach (var player in PhotonNetwork.PlayerList)
         {
             VotePlayerItem votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
-            votePlayerItem.Initialize(this, player);
-            if (player.isDead)
+            votePlayerItem.Initialize(this, player.ActorNumber, player.NickName);
+            foreach (var i in gameController.GetBodiesFoundActorNumber())
             {
-                votePlayerItem.updateStatus("Dead");
-                votePlayerItem.ToggleButton(false);
+                if (i == player.ActorNumber)
+                {
+                    votePlayerItem.updateStatus("Dead");
+                    votePlayerItem.ToggleButton(false);
+                }
             }
             _playersList.Add(votePlayerItem);
         }
@@ -84,22 +87,23 @@ public class VotingManager : MonoBehaviour
         }
     }
 
-    public void CastVote(int actorNumber, PhotonView pv)
+    public void CastVote(int actorNumber)
     {
         if (HasAlreadyVoted)
         {
             return;
         }
+        Debug.Log("CastVote of actornumber: " + actorNumber + "");
         HasAlreadyVoted = true;
         ToggleAllButtons(false);
-        pv.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, actorNumber, pv);
+        gameController.myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, actorNumber);
     }
 
     //rpc function for casting vote
     [PunRPC]
-    public void RPC_CastPlayerVote(int voterActorNumber, int votedActorNumber, PhotonView pv)
+    public void RPC_CastPlayerVote(int voterActorNumber, int votedActorNumber)
     {
-        int remainingplayers = AU_GameController.allPlayers.Count - _playersThatVotedList.Count - _playersThatHaveBeenKickedList.Count;
+        int remainingplayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatVotedList.Count - _playersThatHaveBeenKickedList.Count;
 
         foreach (VotePlayerItem votePlayerItem in _playersList)
         {
@@ -155,7 +159,7 @@ public class VotingManager : MonoBehaviour
         if (mostVotes >= remainingplayers/2)
         {
             _playersThatHaveBeenKickedList.Add(mostVotedPlayer);
-            pv.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);
+            gameController.myPV.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);
         }
     }  
 

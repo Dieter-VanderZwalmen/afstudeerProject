@@ -101,7 +101,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             localPlayer = this;
             this.actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-            Debug.Log(AU_GameController.allPlayers);
         }
         myCamera = transform.GetChild(2).GetComponent<Camera>();
         Debug.Log(myCamera);
@@ -132,7 +131,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
         bodiesFound = new List<Transform>();
 
-        gameController.AddToPlayerList(this);
+        
+
+        gameController.AddToAlivePlayerList(PhotonNetwork.LocalPlayer);
+        Debug.Log(gameController.GetPlayersAlive()[0]);
     }
 
     // Update is called once per frame
@@ -272,6 +274,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     void RPC_Kill(int actorNumber)
     {
         gameController.AddToBodiesFoundActorNumber(actorNumber);
+        gameController.RemoveFromAlivePlayerList(PhotonNetwork.CurrentRoom.GetPlayer(actorNumber));
         Die();
     }
 
