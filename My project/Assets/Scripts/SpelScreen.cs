@@ -9,6 +9,8 @@ public class SpelScreen : MonoBehaviour
 {
     public static AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
 
+    private Button buttonKill;
+
     private void OnEnable()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -17,13 +19,25 @@ public class SpelScreen : MonoBehaviour
         Button buttonMap = root.Q<Button>("Map");
         Button buttonReport = root.Q<Button>("Report");
         Button buttonUse = root.Q<Button>("Use");
-        Button buttonKill = root.Q<Button>("Kill");
+        buttonKill = root.Q<Button>("Kill");
 
         //buttonSettings.clickable.clicked += () => Settings();
         //buttonMap.clickable.clicked += () => Map();
         buttonReport.clickable.clicked += () => Report();
         buttonUse.clickable.clicked += () => Use();
         buttonKill.clickable.clicked += () => Kill();
+    }
+
+    private void Update()
+    {
+        if (AU_PlayerController.localPlayer.isImposter)
+        {
+            buttonKill.visible = true;
+        }
+        else
+        {
+            buttonKill.visible = false;
+        }
     }
 
     /*public void Settings()
