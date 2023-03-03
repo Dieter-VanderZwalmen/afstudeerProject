@@ -117,12 +117,21 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         if (!myPV.IsMine)
         {
             //disable child object named fov
-            transform.GetChild(2).gameObject.SetActive(false);
+            transform.GetChild(3).gameObject.SetActive(false);
             //set the layer to behindMask
+            //AU_Player (TransparentFX)
+            //Player
+            //Canvas_NameTag
+            // -> Text_NameTag
             int behindMaskLayerNumber = LayerMask.NameToLayer("BehindMask");
-            myPV.gameObject.layer = behindMaskLayerNumber;
+            int TransparentFXLayerNumber = LayerMask.NameToLayer("TransparentFX");
+
+            myPV.gameObject.layer = TransparentFXLayerNumber;
             myPV.gameObject.transform.GetChild(0).gameObject.layer = behindMaskLayerNumber;
-            myPV.gameObject.transform.GetChild(0).GetChild(0).gameObject.layer = behindMaskLayerNumber;
+            myPV.gameObject.transform.GetChild(2).gameObject.layer = behindMaskLayerNumber;
+            myPV.gameObject.transform.GetChild(2).GetChild(0).gameObject.layer = behindMaskLayerNumber;
+
+            // myPV.gameObject.transform.GetChild(0).GetChild(0).gameObject.layer = behindMaskLayerNumber;
 
             myCamera.gameObject.SetActive(false);
             //lightMask.SetActive(false);
