@@ -324,7 +324,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        votingManager.DeadBodyReported(myPV, gameController.bodiesFoundActorNumber[gameController.bodiesFoundActorNumber.Count - 1]);
+        PhotonNetwork.LoadLevel("VotingScreen");
     }
 
     void Interact(InputAction.CallbackContext context)
@@ -361,7 +361,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        votingManager.DeadBodyReported(myPV, gameController.bodiesFoundActorNumber[gameController.bodiesFoundActorNumber.Count - 1]);
+        PhotonNetwork.LoadLevel("VotingScreen");
     }
 
     public void Interact()
@@ -401,11 +401,4 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         gameController.AddPlayer(this);
     } */
 
-    [PunRPC]
-    void RPC_DeadBodyReported(int actorNumber)
-    {
-        //load the votingscreen for all players through the photonnetwork
-        votingManager.AddToReportedList(actorNumber);
-        PhotonNetwork.LoadLevel("VotingScreen");
-    }
 }

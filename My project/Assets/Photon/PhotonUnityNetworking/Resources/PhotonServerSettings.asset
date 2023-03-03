@@ -46,6 +46,7 @@ MonoBehaviour:
   - RPC_CastPlayerVote
   - RPC_KickPlayer
   - RPC_AddAllPlayersToAllPlayersList
+  - RPC_LoadVotingScreen
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

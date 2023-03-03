@@ -11,8 +11,8 @@ public class VotingManager : MonoBehaviour
 {
     public static VotingManager Instance;
     private static AU_GameController gameController = new AU_GameController();
+    PhotonView myPV;
 
-    
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
     [SerializeField] private Button _skipVoteButton;
@@ -32,7 +32,9 @@ public class VotingManager : MonoBehaviour
 
     private void Start()
     {
-        PopulatePlayerList();
+        myPV = GetComponent<PhotonView>();
+        Debug.Log("myPV in start: " + myPV);
+        DeadBodyReported(AU_PlayerController.gameController.bodiesFoundActorNumber[AU_PlayerController.gameController.bodiesFoundActorNumber.Count - 1]);
     }
 
     public bool BodyReported(int actorNumber)
@@ -45,12 +47,20 @@ public class VotingManager : MonoBehaviour
         _reportedBodiesList.Add(actorNumber);
     }
 
-    public void DeadBodyReported(PhotonView pv, int actorNumber)
+    public void DeadBodyReported(int actorNumber)
+    {   
+        Debug.Log("myPV deadbodyreported: " + myPV);
+        myPV.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber);
+    }
+    
+    [PunRPC]
+    void RPC_DeadBodyReported(int actorNumber)
     {
+        _reportedBodiesList.Add(actorNumber);
         _playersThatHaveBeenVotedList.Clear();
         _playersThatVotedList.Clear();
         HasAlreadyVoted = false;
-        pv.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber); 
+        PopulatePlayerList();
     }
 
     public void PopulatePlayerList()
