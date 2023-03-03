@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class mapPanel : MonoBehaviour
 {
@@ -9,10 +10,15 @@ public class mapPanel : MonoBehaviour
 
     [SerializeField] GameObject doors;
 
+    //myPv
+    PhotonView myPV;
 
 
-    //import a script 
-
+    //start
+    private void Start()
+    {
+        myPV = GetComponent<PhotonView>();
+    }
 
     //maak map visible
 
@@ -28,28 +34,33 @@ public class mapPanel : MonoBehaviour
     }
 
 
-
+    
     public void DisableLights()
     {
         Debug.Log("Sabotaging the lights");
-        //in the script Fov call the function ReduceVision
-        //get Component AU_PLAYER
-        
-        //get Component Fov
-        //Fov.ReduceVision();
+        myPV.RPC("RPC_DisableLights", RpcTarget.All);
 
     }
 
-    public void CloseDoors() {
-       StartCoroutine(Doors());
+    [PunRPC]
+    void RPC_DisableLights()
+    {
+        Debug.Log("Reducing vision");
 
+        AU_PlayerController.localPlayer.ReduceVision();
     }
-    //coroutine to close doors
-    //maakt dingen met wachten makkelijker
-    IEnumerator Doors() {
-        doors.SetActive(true);
-        //wait 5seconds
-        yield return new WaitForSeconds(5);
+
+    public void Doors() {
+        Debug.Log("Doors");
+       //invoke
+       doors.SetActive(true);
+       Invoke("openDoors",5f); //na 5 seconden doe deuren terug open
+    }
+
+    private void openDoors(){
         doors.SetActive(false);
     }
+
+
+ 
 }

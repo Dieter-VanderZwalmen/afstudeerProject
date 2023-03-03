@@ -94,20 +94,26 @@ public class Fov : MonoBehaviour
     //reduce vision
     public void ReduceVision()
     {
-        StartCoroutine(DecreaseVision());
+        float backupViewdistance = this.viewDistance;
+        StartCoroutine(DecreaseVision(backupViewdistance));
     }
     //decreses vision
     //every frame reduce the view distance by 1f
     //when view distance is 0f stop the coroutine
-    IEnumerator DecreaseVision()
+    IEnumerator DecreaseVision(float parameterViewdistance)
     {
         Debug.Log("DecreaseVision");
         
-        while (this.viewDistance > 0f)
+        while (this.viewDistance > 0.5f)
         {
             viewDistance -= 0.1f;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield return new WaitForSeconds(10f);
+         while (this.viewDistance < parameterViewdistance)
+        {
+            viewDistance += 0.1f;
+            yield return new WaitForSeconds(0.05f);
         }
     }
-
 }

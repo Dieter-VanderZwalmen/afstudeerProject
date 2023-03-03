@@ -250,6 +250,14 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
+    public void ReduceVision(){
+        //get component Fov
+        Debug.Log("AU_PlayerController: ReduceVision");
+       
+        //GetGameObject<Fov>().ReduceVision();
+        //get the child object named fov and call the function ReduceVision
+        myPV.gameObject.transform.GetChild(3).gameObject.GetComponent<Fov>().ReduceVision();
+    }
     private void KillTarget(InputAction.CallbackContext context)
     {
         if (!myPV.IsMine)
@@ -408,4 +416,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
             direction = (float)stream.ReceiveNext();
         }
     }
+
+
+   
 }
