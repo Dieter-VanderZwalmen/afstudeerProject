@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 using System.IO;
 using TMPro;
 
@@ -37,10 +38,10 @@ public class VotePlayerItem : MonoBehaviour
         _votingManager.CastVote(_actorNumber);
     }
 
-    public void Initialize(VotingManager votingManager, AU_PlayerController player)
+    public void Initialize(VotingManager votingManager, Player player)
     {
-        _actorNumber = player.actorNumber;
-        _playerNameText.text = player.nickName;
+        _actorNumber = player.ActorNumber;
+        _playerNameText.text = player.NickName;
         _statusText.text = "Not Decided";
         _votingManager = votingManager;
     }

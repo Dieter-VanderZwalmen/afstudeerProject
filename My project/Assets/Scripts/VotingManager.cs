@@ -32,9 +32,7 @@ public class VotingManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("in voting manager start");
         PopulatePlayerList();
-        Debug.Log("after populate player list");
     }
 
     public bool BodyReported(int actorNumber)
@@ -42,9 +40,13 @@ public class VotingManager : MonoBehaviour
         return _reportedBodiesList.Contains(actorNumber);
     }
 
-    public void DeadBodyReported(PhotonView pv, int actorNumber)
+    public void AddToReportedList(int actorNumber)
     {
         _reportedBodiesList.Add(actorNumber);
+    }
+
+    public void DeadBodyReported(PhotonView pv, int actorNumber)
+    {
         _playersThatHaveBeenVotedList.Clear();
         _playersThatVotedList.Clear();
         HasAlreadyVoted = false;
@@ -61,12 +63,13 @@ public class VotingManager : MonoBehaviour
 
         _playersList.Clear();
         //create the list of vote player items and write dead as status for deadplayers and toggle buttons to false for the deadplayers
-        Debug.Log("AU_GameController.allPlayers.Count: " + AU_GameController.allPlayers.Count + "");
-        foreach (var player in AU_GameController.allPlayers)
+        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
+            Debug.Log("player: " + player);
             VotePlayerItem votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
             votePlayerItem.Initialize(this, player);
-            if (player.isDead)
+            Debug.Log("_reportedBodiesList: " + _reportedBodiesList);
+            if (_reportedBodiesList.Contains(player.ActorNumber))
             {
                 votePlayerItem.updateStatus("Dead");
                 votePlayerItem.ToggleButton(false);

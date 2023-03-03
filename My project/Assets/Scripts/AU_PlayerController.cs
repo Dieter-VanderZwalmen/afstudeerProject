@@ -15,7 +15,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     public int actorNumber;
 
     private static VotingManager votingManager = new VotingManager();
-    private static AU_GameController gameController = new AU_GameController();
+    public static AU_GameController gameController = new AU_GameController();
 
     //Components
     Rigidbody myRB;
@@ -281,9 +281,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         //AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
         AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
         tempBody.SetColor(myAvatarSprite.color);
-
         isDead = true;
-
         myAnim.SetBool("IsDead", isDead);
         gameObject.layer = 9;
         myCollider.enabled = false;
@@ -380,11 +378,13 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         {
             stream.SendNext(direction);
             stream.SendNext(isImposter);
+            stream.SendNext(isDead);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
             this.isImposter = (bool)stream.ReceiveNext();
+            this.isDead = (bool)stream.ReceiveNext();
         }
     }
 
@@ -396,15 +396,16 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         }
     }
 
-    public void AddToAllPlayersList()
+    /* public void AddToAllPlayersList()
     {
         gameController.AddPlayer(this);
-    }
+    } */
 
     [PunRPC]
     void RPC_DeadBodyReported(int actorNumber)
     {
         //load the votingscreen for all players through the photonnetwork
+        votingManager.AddToReportedList(actorNumber);
         PhotonNetwork.LoadLevel("VotingScreen");
     }
 }

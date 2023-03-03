@@ -7,8 +7,8 @@ using Photon.Realtime;
 public class AU_GameController : MonoBehaviour
 {
     public PhotonView myPV;
-    public static List<AU_PlayerController> allPlayers = new List<AU_PlayerController>();
-    public static Player[] alivePlayers = PhotonNetwork.PlayerList;
+    public List<AU_PlayerController> allPlayers = new List<AU_PlayerController>();
+    public Player[] alivePlayers = PhotonNetwork.PlayerList;
     public List<int> bodiesFoundActorNumber = new List<int>();
     int whichPlayerIsImposter;
 
@@ -20,8 +20,8 @@ public class AU_GameController : MonoBehaviour
         {
             PickImposter();
         }
-        myPV.RPC("RPC_AddAllPlayersToAllPlayersList", RpcTarget.All);
-    }
+/*         myPV.RPC("RPC_AddAllPlayersToAllPlayersList", RpcTarget.All);
+ */    }
 
     public void AddPlayer(AU_PlayerController player)
     {
@@ -35,13 +35,9 @@ public class AU_GameController : MonoBehaviour
 
     public void AddToAlivePlayerList(Player player)
     {
-        Debug.Log("in add alive player");
-        Debug.Log("player: " + player);
         List<Player> tempList = new List<Player>(alivePlayers);
         tempList.Add(player);
         alivePlayers = tempList.ToArray();
-        Debug.Log("added alive players");
-        Debug.Log("added alive player:" + alivePlayers[0]);
     }
 
     public void RemoveFromAlivePlayerList(Player player)
@@ -70,9 +66,9 @@ public class AU_GameController : MonoBehaviour
         AU_PlayerController.localPlayer.BecomeImposter(whichPlayerIsImposter);
     }
 
-    [PunRPC]
+    /* [PunRPC]
     void RPC_AddAllPlayersToAllPlayersList()
     {
         AU_PlayerController.localPlayer.AddToAllPlayersList();
-    }
+    } */
 }
