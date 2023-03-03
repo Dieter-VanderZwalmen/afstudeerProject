@@ -33,7 +33,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     SpriteRenderer myAvatarSprite;
 
     //Role
-    [SerializeField] bool isImposter;
+    [SerializeField] public bool isImposter;
     [SerializeField] InputAction KILL;
     float killInput;
 

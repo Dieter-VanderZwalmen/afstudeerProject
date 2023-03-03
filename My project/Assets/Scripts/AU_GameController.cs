@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 using Photon.Realtime;
 
 public class AU_GameController : MonoBehaviour
@@ -10,6 +11,10 @@ public class AU_GameController : MonoBehaviour
     public List<AU_PlayerController> allPlayers = new List<AU_PlayerController>();
     public Player[] alivePlayers = PhotonNetwork.PlayerList;
     public List<int> bodiesFoundActorNumber = new List<int>();
+    
+    [SerializeField] GameObject roleScreen;
+    [SerializeField] TextMeshProUGUI roleText;
+
     int whichPlayerIsImposter;
 
     // Start is called before the first frame update
@@ -20,8 +25,8 @@ public class AU_GameController : MonoBehaviour
         {
             PickImposter();
         }
-/*         myPV.RPC("RPC_AddAllPlayersToAllPlayersList", RpcTarget.All);
- */    }
+        Invoke("ShowRole", 1f);
+    }
 
     public void AddPlayer(AU_PlayerController player)
     {
@@ -54,9 +59,24 @@ public class AU_GameController : MonoBehaviour
 
     void PickImposter()
     {
-        whichPlayerIsImposter = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+        whichPlayerIsImposter = Random.Range(1, PhotonNetwork.CurrentRoom.PlayerCount);
         myPV.RPC("RPC_SyncImposter", RpcTarget.All, whichPlayerIsImposter);
         Debug.Log("Imposter " + whichPlayerIsImposter);
+    }
+    
+    void ShowRole()
+    {
+        roleScreen.SetActive(true);
+        if (AU_PlayerController.localPlayer.isImposter)
+        {
+            roleText.text = "BEDRIEGER";
+            roleText.color = Color.red;
+        }
+        else
+        {
+            roleText.text = "TEAMGENOOT";
+            roleText.color = Color.green;
+        }
     }
 
     [PunRPC]
