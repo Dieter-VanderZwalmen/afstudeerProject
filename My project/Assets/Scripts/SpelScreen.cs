@@ -9,7 +9,8 @@ public class SpelScreen : MonoBehaviour
 {
     public static AU_PlayerController localPlayer = AU_PlayerController.localPlayer;
     private Button buttonKill;
-    
+
+    [SerializeField] GameObject miniMap;
     private void OnEnable()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -21,10 +22,11 @@ public class SpelScreen : MonoBehaviour
         buttonKill = root.Q<Button>("Kill");
 
         //buttonSettings.clickable.clicked += () => Settings();
-        //buttonMap.clickable.clicked += () => Map();
+        buttonMap.clickable.clicked += () => Map();
         buttonReport.clickable.clicked += () => Report();
         buttonUse.clickable.clicked += () => Use();
         buttonKill.clickable.clicked += () => Kill();
+        
     }
 
     private void Update()
@@ -46,12 +48,11 @@ public class SpelScreen : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }*/
 
-    /*public void Map()
+    public void Map()
     {
-        // Handle Map button click
         Debug.Log("Map button clicked");
-        SceneManager.LoadScene("Map");
-    }*/
+        miniMap.SetActive(true);
+    }
 
     public void Report()
     {
