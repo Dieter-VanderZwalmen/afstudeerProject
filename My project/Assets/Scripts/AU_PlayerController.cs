@@ -6,12 +6,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using TMPro;
 
-public class AU_PlayerController : MonoBehaviourPun, IPunObservable
+public class AU_PlayerController : MonoBehaviour, IPunObservable
 {
     [SerializeField] bool hasControl;
     public static AU_PlayerController localPlayer;
+    public string nickName;
+    public int actorNumber;
+
+    private static VotingManager votingManager = new VotingManager();
+    public static AU_GameController gameController = new AU_GameController();
 
     //Components
     Rigidbody myRB;
@@ -29,14 +33,14 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     SpriteRenderer myAvatarSprite;
 
     //Role
-    [SerializeField] bool isImposter;
+    [SerializeField] public bool isImposter;
     [SerializeField] InputAction KILL;
     float killInput;
 
     List<AU_PlayerController> targets;
     [SerializeField] Collider myCollider;
 
-    bool isDead;
+    public bool isDead;
 
     [SerializeField] GameObject bodyPrefab;
 
@@ -56,12 +60,9 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     [SerializeField] LayerMask interactLayer;
 
     //Networking
-    PhotonView myPV;
+    public PhotonView myPV; 
     [SerializeField] GameObject lightMask;
     [SerializeField] lightcaster myLightCaster;
-
-    [SerializeField] private TextMeshProUGUI nameText;
-    public string myNickname;
 
     private void Awake()
     {
@@ -91,7 +92,6 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
         
@@ -100,57 +100,32 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         if(myPV.IsMine)
         {
             localPlayer = this;
+            this.actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         }
-        myCamera = transform.GetChild(1).GetComponent<Camera>();
+        myCamera = transform.GetChild(2).GetComponent<Camera>();
+        Debug.Log(myCamera);
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
-
-        //set Color to white
-        
-        SetColor(Color.white);
-        SetColorAsNickname("White");
-        SetName();
-
         if (!myPV.IsMine)
         {
-            //disable child object named fov
-            transform.GetChild(3).gameObject.SetActive(false);
-            //set the layer to behindMask
-            //AU_Player (TransparentFX)
-            //Player
-            //Canvas_NameTag
-            // -> Text_NameTag
-            int behindMaskLayerNumber = LayerMask.NameToLayer("BehindMask");
-            int TransparentFXLayerNumber = LayerMask.NameToLayer("TransparentFX");
-
-            myPV.gameObject.layer = TransparentFXLayerNumber;
-            myPV.gameObject.transform.GetChild(0).gameObject.layer = behindMaskLayerNumber;
-            myPV.gameObject.transform.GetChild(2).gameObject.layer = behindMaskLayerNumber;
-            myPV.gameObject.transform.GetChild(2).GetChild(0).gameObject.layer = behindMaskLayerNumber;
-
-            // myPV.gameObject.transform.GetChild(0).GetChild(0).gameObject.layer = behindMaskLayerNumber;
-
             myCamera.gameObject.SetActive(false);
-            //lightMask.SetActive(false);
-            //myLightCaster.enabled = false;
+            lightMask.SetActive(false);
+            myLightCaster.enabled = false;
             return;
         }
         if (myColor == Color.clear)
             myColor = Color.white;
-
         myAvatarSprite.color = myColor;
-
 
         if (sceneName == "StartGame")
         {
             myCamera.gameObject.SetActive(false);
-            
+            lightMask.SetActive(false);
+            myLightCaster.enabled = false;
         }
-
-        
 
         allBodies = new List<Transform>();
 
@@ -169,23 +144,13 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         myAnim.SetFloat("Speed", movementInput.magnitude);
         if (movementInput.x != 0)
         {
-            //Draai enkel het object Player.
-            //Blijf ook gedraaid staan.
-            
             direction = Mathf.Sign(movementInput.x);
-            Transform player = transform.Find("Player");
-            if (player != null)
-            {
-                player.localScale = new Vector3(direction, 1, 1);
-            }
-
-
         }
 
-        /*if (allBodies.Count > 0)
+        if(allBodies.Count > 0)
         {
             BodySearch();
-        }*/
+        }
 
         mousePositionInput = MOUSE.ReadValue<Vector2>();
     }
@@ -195,17 +160,6 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         if (!myPV.IsMine)
             return;
         myRB.velocity = movementInput * movementSpeed;
-    }
-
-    private void SetName(){
-       nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
-    }
-
-    public void SetColorAsNickname(string nickname){
-        PhotonNetwork.LocalPlayer.NickName = nickname;
-        nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
-
-        Debug.Log("My Nickname: " + PhotonNetwork.LocalPlayer.NickName);
     }
 
     public void SetColor(Color newColor)
@@ -259,14 +213,6 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void ReduceVision(){
-        //get component Fov
-        Debug.Log("AU_PlayerController: ReduceVision");
-       
-        //GetGameObject<Fov>().ReduceVision();
-        //get the child object named fov and call the function ReduceVision
-        myPV.gameObject.transform.GetChild(3).gameObject.GetComponent<Fov>().ReduceVision();
-    }
     private void KillTarget(InputAction.CallbackContext context)
     {
         if (!myPV.IsMine)
@@ -283,7 +229,6 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
             {
                 if (targets[targets.Count - 1].isDead)
                     return;
-
                 transform.position = targets[targets.Count - 1].transform.position;
                 //targets[targets.Count - 1].Die();  --> non multiplayer
                 targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
@@ -295,30 +240,36 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     public void KillTarget()
     {
         if (!myPV.IsMine)
+        {
             return;
+        }
         if (!isImposter)
+        {
             return;
-
-            //Debug.Log(targets.Count);
-            if (targets.Count == 0)
-                return;
-            else
+        }
+        //Debug.Log(targets.Count);
+        if (targets.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            if (targets[targets.Count - 1].isDead)
             {
-                if (targets[targets.Count - 1].isDead)
-                    return;
-
-                transform.position = targets[targets.Count - 1].transform.position;
-                //targets[targets.Count - 1].Die();  --> non multiplayer
-                targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All);
-                targets.RemoveAt(targets.Count - 1);
-            
+                return;
+            }
+            transform.position = targets[targets.Count - 1].transform.position;
+            //targets[targets.Count - 1].Die();  --> non multiplayer
+            targets[targets.Count - 1].myPV.RPC("RPC_Kill", RpcTarget.All, targets[targets.Count - 1].myPV.Owner.ActorNumber);
+            targets.RemoveAt(targets.Count - 1);
         }
     }
-
-
+        
     [PunRPC]
-    void RPC_Kill()
+    void RPC_Kill(int actorNumber)
     {
+        gameController.AddToBodiesFoundActorNumber(actorNumber);
+        gameController.RemoveFromAlivePlayerList(PhotonNetwork.CurrentRoom.GetPlayer(actorNumber));
         Die();
     }
 
@@ -330,9 +281,7 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         //AU_Body tempBody = Instantiate(bodyPrefab, transform.position, transform.rotation).GetComponent<AU_Body>();
         AU_Body tempBody = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Body"), transform.position, transform.rotation).GetComponent<AU_Body>();
         tempBody.SetColor(myAvatarSprite.color);
-
         isDead = true;
-
         myAnim.SetBool("IsDead", isDead);
         gameObject.layer = 9;
         myCollider.enabled = false;
@@ -342,38 +291,40 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
     {
         foreach(Transform body in allBodies)
         {
-            RaycastHit hit;
-            Ray ray = new Ray(transform.position, body.position - transform.position);
-            Debug.DrawRay(transform.position, body.position - transform.position, Color.cyan);
-            if(Physics.Raycast(ray, out hit, 1000f, ~ignoreForBody))
+            if (Vector2.Distance(transform.position, body.position) < 5f)
             {
-                
-                if (hit.transform == body)
+                if (!bodiesFound.Contains(body))
                 {
-                    //Debug.Log(hit.transform.name);
-                    //Debug.Log(bodiesFound.Count);
-                    if (bodiesFound.Contains(body.transform))
-                        return;
-                    bodiesFound.Add(body.transform);
+                    bodiesFound.Add(body);
                 }
-                else
-                {                   
-                    bodiesFound.Remove(body.transform);
+            }
+            else
+            {
+                if (bodiesFound.Contains(body))
+                {
+                    bodiesFound.Remove(body);
                 }
             }
         }
     }
 
-    private void ReportBody(InputAction.CallbackContext obj)
+    public void ReportBody(InputAction.CallbackContext obj)
     {
-        if (bodiesFound == null)
+        if (gameController.bodiesFoundActorNumber == null)
+        {    
+            Debug.Log("bodiesfound is null");
             return;
-        if (bodiesFound.Count == 0)
+        }
+        if (gameController.bodiesFoundActorNumber.Count == 0)
+        {
+            Debug.Log("bodiesfound is 0");
             return;
+        }
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
+        PhotonNetwork.LoadLevel("VotingScreen");
     }
 
     void Interact(InputAction.CallbackContext context)
@@ -396,14 +347,21 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
 
     public void ReportBody()
     {
-        if (bodiesFound == null)
+        if (gameController.bodiesFoundActorNumber == null)
+        {    
+            Debug.Log("bodiesfound is null");
             return;
-        if (bodiesFound.Count == 0)
+        }
+        if (gameController.bodiesFoundActorNumber.Count == 0)
+        {
+            Debug.Log("bodiesfound is 0");
             return;
+        }
         Transform tempBody = bodiesFound[bodiesFound.Count - 1];
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
+        PhotonNetwork.LoadLevel("VotingScreen");
     }
 
     public void Interact()
@@ -419,13 +377,28 @@ public class AU_PlayerController : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(direction);
+            stream.SendNext(isImposter);
+            stream.SendNext(isDead);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
+            this.isImposter = (bool)stream.ReceiveNext();
+            this.isDead = (bool)stream.ReceiveNext();
         }
     }
 
+    public void BecomeImposter(int ImposterNumber)
+    {
+        if(PhotonNetwork.LocalPlayer == PhotonNetwork.PlayerList[ImposterNumber])
+        {
+            isImposter = true;
+        }
+    }
 
-   
+    /* public void AddToAllPlayersList()
+    {
+        gameController.AddPlayer(this);
+    } */
+
 }
