@@ -3126,11 +3126,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1061753258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e135de78b455d4cb87c7e8a932ac14, type: 3}
+  m_Script: {fileID: 11500000, guid: dbc1bce49b477fc43b285c9683df6f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roleScreen: {fileID: 1064590879}
-  roleText: {fileID: 1621257229}
+  myPV: {fileID: 0}
+  allPlayers: []
+  bodiesFoundActorNumber: 
+  roleScreen: {fileID: 0}
+  roleText: {fileID: 0}
 --- !u!1 &1064590879
 GameObject:
   m_ObjectHideFlags: 0
