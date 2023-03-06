@@ -565,11 +565,9 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 576
-  lightMask: {fileID: 0}
-  myLightCaster: {fileID: 0}
+  myPV: {fileID: 0}
   nameText: {fileID: 5145731407078689176}
   myNickname: 
-  myPV: {fileID: 0}
 --- !u!95 &7018325588081099161
 Animator:
   serializedVersion: 5
