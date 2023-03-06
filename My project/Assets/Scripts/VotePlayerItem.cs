@@ -29,12 +29,12 @@ public class VotePlayerItem : MonoBehaviour
     private void Awake()
     {
         _voteButton = GetComponentInChildren<Button>();
-        Debug.Log("vote button in _voteButton: " + _voteButton);
         _voteButton.onClick.AddListener(OnVotePressed);
     }
 
     private void OnVotePressed()
     {
+        Debug.Log("_actorNumber in OnVotePressed: " + _actorNumber);
         _votingManager.CastVote(_actorNumber);
     }
 

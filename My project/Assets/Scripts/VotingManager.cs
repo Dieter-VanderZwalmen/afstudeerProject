@@ -61,6 +61,11 @@ public class VotingManager : MonoBehaviour
         _playersThatVotedList.Clear();
         HasAlreadyVoted = false;
         PopulatePlayerList();
+        // if the photonNetwork.localplayer is dead, then disable all butons
+        if (_reportedBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            ToggleAllButtons(false);
+        }
     }
 
     public void PopulatePlayerList()
@@ -104,16 +109,19 @@ public class VotingManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log("CastVote of actornumber: " + actorNumber + "");
         HasAlreadyVoted = true;
         ToggleAllButtons(false);
-        gameController.myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, actorNumber);
+        myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, actorNumber);
     }
 
     //rpc function for casting vote
     [PunRPC]
     public void RPC_CastPlayerVote(int voterActorNumber, int votedActorNumber)
     {
+
+        Debug.Log("voterActorNumber: " + voterActorNumber);
+        Debug.Log("votedActorNumber: " + votedActorNumber);
+
         int remainingplayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatVotedList.Count - _playersThatHaveBeenKickedList.Count;
 
         foreach (VotePlayerItem votePlayerItem in _playersList)
@@ -170,7 +178,7 @@ public class VotingManager : MonoBehaviour
         if (mostVotes >= remainingplayers/2)
         {
             _playersThatHaveBeenKickedList.Add(mostVotedPlayer);
-            gameController.myPV.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);
+            myPV.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);
         }
     }  
 
