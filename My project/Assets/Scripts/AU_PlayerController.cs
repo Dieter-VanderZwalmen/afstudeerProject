@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-//using TMPro;
+using TMPro;
 
 
 public class AU_PlayerController : MonoBehaviour, IPunObservable
@@ -63,6 +63,11 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     //Networking
     public PhotonView myPV; 
+
+
+    [SerializeField] private TextMeshProUGUI nameText;
+    public string myNickname;
+
 
     private void Awake()
     {
@@ -257,7 +262,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         //get the child object named fov and call the function ReduceVision
         myPV.gameObject.transform.GetChild(3).gameObject.GetComponent<Fov>().ReduceVision();
     }
-    
+
 
     private void KillTarget(InputAction.CallbackContext context)
     {
