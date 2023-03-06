@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+//using TMPro;
+
 
 public class AU_PlayerController : MonoBehaviour, IPunObservable
 {
@@ -61,8 +63,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     //Networking
     public PhotonView myPV; 
-    [SerializeField] GameObject lightMask;
-    [SerializeField] lightcaster myLightCaster;
 
     private void Awake()
     {
@@ -102,18 +102,39 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             localPlayer = this;
             this.actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         }
-        myCamera = transform.GetChild(2).GetComponent<Camera>();
-        Debug.Log(myCamera);
+        myCamera = transform.GetChild(1).GetComponent<Camera>();
         targets = new List<AU_PlayerController>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
+
+        SetColor(Color.white);
+        SetColorAsNickname("White");
+        SetName();
+
         if (!myPV.IsMine)
         {
+            //disable child object named fov
+            transform.GetChild(3).gameObject.SetActive(false);
+            //set the layer to behindMask
+            //AU_Player (TransparentFX)
+            //Player
+            //Canvas_NameTag
+            // -> Text_NameTag
+            int behindMaskLayerNumber = LayerMask.NameToLayer("BehindMask");
+            int TransparentFXLayerNumber = LayerMask.NameToLayer("TransparentFX");
+
+            myPV.gameObject.layer = TransparentFXLayerNumber;
+            myPV.gameObject.transform.GetChild(0).gameObject.layer = behindMaskLayerNumber;
+            myPV.gameObject.transform.GetChild(2).gameObject.layer = behindMaskLayerNumber;
+            myPV.gameObject.transform.GetChild(2).GetChild(0).gameObject.layer = behindMaskLayerNumber;
+
+            // myPV.gameObject.transform.GetChild(0).GetChild(0).gameObject.layer = behindMaskLayerNumber;
+
             myCamera.gameObject.SetActive(false);
-            lightMask.SetActive(false);
-            myLightCaster.enabled = false;
+            //lightMask.SetActive(false);
+            //myLightCaster.enabled = false;
             return;
         }
         if (myColor == Color.clear)
@@ -123,8 +144,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if (sceneName == "StartGame")
         {
             myCamera.gameObject.SetActive(false);
-            lightMask.SetActive(false);
-            myLightCaster.enabled = false;
         }
 
         allBodies = new List<Transform>();
@@ -144,8 +163,14 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAnim.SetFloat("Speed", movementInput.magnitude);
         if (movementInput.x != 0)
         {
-            direction = Mathf.Sign(movementInput.x);
+           direction = Mathf.Sign(movementInput.x);
+            Transform player = transform.Find("Player");
+            if (player != null)
+            {
+                player.localScale = new Vector3(direction, 1, 1);
+            }
         }
+
 
         if(allBodies.Count > 0)
         {
@@ -160,6 +185,17 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         if (!myPV.IsMine)
             return;
         myRB.velocity = movementInput * movementSpeed;
+    }
+
+     private void SetName(){
+       nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
+    }
+
+    public void SetColorAsNickname(string nickname){
+        PhotonNetwork.LocalPlayer.NickName = nickname;
+        nameText.text =  PhotonNetwork.LocalPlayer.NickName ;
+
+        Debug.Log("My Nickname: " + PhotonNetwork.LocalPlayer.NickName);
     }
 
     public void SetColor(Color newColor)
@@ -212,6 +248,16 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             tempInteractable = null;
         }
     }
+
+    public void ReduceVision(){
+        //get component Fov
+        Debug.Log("AU_PlayerController: ReduceVision");
+       
+        //GetGameObject<Fov>().ReduceVision();
+        //get the child object named fov and call the function ReduceVision
+        myPV.gameObject.transform.GetChild(3).gameObject.GetComponent<Fov>().ReduceVision();
+    }
+    
 
     private void KillTarget(InputAction.CallbackContext context)
     {
