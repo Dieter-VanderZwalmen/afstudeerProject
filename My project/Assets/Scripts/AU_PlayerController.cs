@@ -324,7 +324,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        PhotonNetwork.LoadLevel("VotingScreen");
+        myPV.RPC("RPC_ReportBody", RpcTarget.MasterClient);
     }
 
     void Interact(InputAction.CallbackContext context)
@@ -361,7 +361,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         allBodies.Remove(tempBody);
         bodiesFound.Remove(tempBody);
         tempBody.GetComponent<AU_Body>().Report();
-        PhotonNetwork.LoadLevel("VotingScreen");
+        myPV.RPC("RPC_ReportBody", RpcTarget.MasterClient);
     }
 
     public void Interact()
@@ -370,6 +370,11 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             {
                 tempInteractable.PlayMiniGame();
             }
+    }
+
+    [PunRPC]
+    public void RPC_ReportBody(){
+        PhotonNetwork.LoadLevel("VotingScreen");
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
