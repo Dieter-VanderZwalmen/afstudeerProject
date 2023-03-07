@@ -446,10 +446,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     public void BecomeImposter(int ImposterNumber)
     {
-        /*if(PhotonNetwork.LocalPlayer == PhotonNetwork.PlayerList[ImposterNumber])
+        if (PhotonNetwork.LocalPlayer == PhotonNetwork.PlayerList[ImposterNumber])
         {
             isImposter = true;
-        }*/
+        }
     }
 
     /* public void AddToAllPlayersList()
