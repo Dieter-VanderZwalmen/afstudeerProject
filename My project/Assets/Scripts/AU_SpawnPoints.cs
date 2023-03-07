@@ -11,6 +11,7 @@ public class AU_SpawnPoints : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Start bij AU_SpawnPoints");
         instance = this;   
     }
 }
