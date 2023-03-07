@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 public class VotingManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class VotingManager : MonoBehaviour
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
     [SerializeField] private Button _skipVoteButton;
+    [SerializeField] private TextMeshProUGUI _kickMessage;
+    [SerializeField] private GameObject _kickWindow;
 
     [HideInInspector] private bool HasAlreadyVoted;
 
@@ -32,6 +35,7 @@ public class VotingManager : MonoBehaviour
 
     private void Start()
     {
+        _kickWindow.SetActive(false);
         myPV = GetComponent<PhotonView>();
         _skipVoteButton = GameObject.Find("SkipVoteButton").GetComponent<Button>();
         _skipVoteButton.onClick.AddListener(OnSkipPressed);
@@ -202,8 +206,18 @@ public class VotingManager : MonoBehaviour
                 break;
             }
         }
-        string message = actorNumber == -1 ? "No one was voted out" : playerName + " was voted out";
-        Debug.Log(message);
+        string kickMessage = actorNumber == -1 ? "No one was voted out" : playerName + " was voted out";
+        Debug.Log(kickMessage);
+        //code for kicking player or winnig the game after voting sesh
+        StartCoroutine(ShowKickedMessaged(kickMessage));
+        // PhotonNetwork.LoadLevel("WinScreen");
+    }
+
+    private IEnumerator ShowKickedMessaged(string kickMessage)
+    {
+        _kickMessage.text = kickMessage;
+        _kickWindow.SetActive(true);
+        yield return new WaitForSeconds(5);
         PhotonNetwork.LoadLevel("Game");
     }
 }
