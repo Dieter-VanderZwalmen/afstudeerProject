@@ -33,7 +33,20 @@ public class VotingManager : MonoBehaviour
     private void Start()
     {
         myPV = GetComponent<PhotonView>();
+        _skipVoteButton = GameObject.Find("SkipVoteButton").GetComponent<Button>();
+        _skipVoteButton.onClick.AddListener(OnSkipPressed);
         DeadBodyReported(AU_PlayerController.gameController.bodiesFoundActorNumber[AU_PlayerController.gameController.bodiesFoundActorNumber.Count - 1]);
+    }
+
+    private void OnSkipPressed()
+    {
+        if (HasAlreadyVoted)
+        {
+            return;
+        }
+        HasAlreadyVoted = true;
+        ToggleAllButtons(false);
+        myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, -1);
     }
 
     public bool BodyReported(int actorNumber)
@@ -136,10 +149,6 @@ public class VotingManager : MonoBehaviour
             _playersThatHaveBeenVotedList.Add(votedActorNumber);
         }
 
-        Debug.Log("_allDeadBodiesList.Count: " + _reportedBodiesList.Count);
-        Debug.Log("_playersThatHaveBeenKickedList.Count: " + _playersThatHaveBeenKickedList.Count);
-        Debug.Log("photonNetwork.CurrentRoom.PlayerCount: " + PhotonNetwork.CurrentRoom.PlayerCount);
-
         int votingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatHaveBeenKickedList.Count - _reportedBodiesList.Count;
 
         if (_playersThatVotedList.Count < votingPlayers)
@@ -194,6 +203,7 @@ public class VotingManager : MonoBehaviour
             }
         }
         string message = actorNumber == -1 ? "No one was voted out" : playerName + " was voted out";
+        Debug.Log(message);
         PhotonNetwork.LoadLevel("Game");
     }
 }
