@@ -59,7 +59,7 @@ public class AU_GameController : MonoBehaviour
 
     void PickImposter()
     {
-        whichPlayerIsImposter = Random.Range(1, PhotonNetwork.CurrentRoom.PlayerCount);
+        whichPlayerIsImposter = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
         myPV.RPC("RPC_SyncImposter", RpcTarget.All, whichPlayerIsImposter);
         Debug.Log("Imposter " + whichPlayerIsImposter);
     }

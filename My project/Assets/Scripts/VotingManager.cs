@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 public class VotingManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class VotingManager : MonoBehaviour
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
     [SerializeField] private Button _skipVoteButton;
+    [SerializeField] private TextMeshProUGUI _kickMessage;
+    [SerializeField] private GameObject _kickWindow;
 
     [HideInInspector] private bool HasAlreadyVoted;
 
@@ -32,9 +35,22 @@ public class VotingManager : MonoBehaviour
 
     private void Start()
     {
+        _kickWindow.SetActive(false);
         myPV = GetComponent<PhotonView>();
-        Debug.Log("myPV in start: " + myPV);
+        _skipVoteButton = GameObject.Find("SkipVoteButton").GetComponent<Button>();
+        _skipVoteButton.onClick.AddListener(OnSkipPressed);
         DeadBodyReported(AU_PlayerController.gameController.bodiesFoundActorNumber[AU_PlayerController.gameController.bodiesFoundActorNumber.Count - 1]);
+    }
+
+    private void OnSkipPressed()
+    {
+        if (HasAlreadyVoted)
+        {
+            return;
+        }
+        HasAlreadyVoted = true;
+        ToggleAllButtons(false);
+        myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, -1);
     }
 
     public bool BodyReported(int actorNumber)
@@ -49,18 +65,23 @@ public class VotingManager : MonoBehaviour
 
     public void DeadBodyReported(int actorNumber)
     {   
-        Debug.Log("myPV deadbodyreported: " + myPV);
-        myPV.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber);
+        //myPV.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber);
+        RPC_DeadBodyReported(actorNumber);
     }
     
-    [PunRPC]
+    //[PunRPC]
     void RPC_DeadBodyReported(int actorNumber)
-    {
+    {   
         _reportedBodiesList.Add(actorNumber);
         _playersThatHaveBeenVotedList.Clear();
         _playersThatVotedList.Clear();
         HasAlreadyVoted = false;
         PopulatePlayerList();
+        // if the photonNetwork.localplayer is dead, then disable all butons
+        if (_reportedBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            ToggleAllButtons(false);
+        }
     }
 
     public void PopulatePlayerList()
@@ -75,10 +96,8 @@ public class VotingManager : MonoBehaviour
         //create the list of vote player items and write dead as status for deadplayers and toggle buttons to false for the deadplayers
         foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
-            Debug.Log("player: " + player);
             VotePlayerItem votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
             votePlayerItem.Initialize(this, player);
-            Debug.Log("_reportedBodiesList: " + _reportedBodiesList);
             if (_reportedBodiesList.Contains(player.ActorNumber))
             {
                 votePlayerItem.updateStatus("Dead");
@@ -104,26 +123,29 @@ public class VotingManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log("CastVote of actornumber: " + actorNumber + "");
         HasAlreadyVoted = true;
         ToggleAllButtons(false);
-        gameController.myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, actorNumber);
+        myPV.RPC("RPC_CastPlayerVote", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, actorNumber);
     }
 
     //rpc function for casting vote
     [PunRPC]
     public void RPC_CastPlayerVote(int voterActorNumber, int votedActorNumber)
     {
-        int remainingplayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatVotedList.Count - _playersThatHaveBeenKickedList.Count;
+        Debug.Log("voterActorNumber: " + voterActorNumber);
+        Debug.Log("votedActorNumber: " + votedActorNumber);
 
         foreach (VotePlayerItem votePlayerItem in _playersList)
         {
-            if (votePlayerItem.GetActorNumber == votedActorNumber)
+            if (votePlayerItem.GetActorNumber == voterActorNumber)
             {
                 votePlayerItem.updateStatus("Voted");
             }
         }
-
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
         // log the player that just voted / and who voted for
         if (!_playersThatVotedList.Contains(voterActorNumber))
         {
@@ -131,11 +153,9 @@ public class VotingManager : MonoBehaviour
             _playersThatHaveBeenVotedList.Add(votedActorNumber);
         }
 
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        if (_playersThatVotedList.Count < remainingplayers)
+        int votingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatHaveBeenKickedList.Count - _reportedBodiesList.Count;
+
+        if (_playersThatVotedList.Count < votingPlayers)
         {
             return;
         }
@@ -167,10 +187,10 @@ public class VotingManager : MonoBehaviour
         }
 
         //end voting session
-        if (mostVotes >= remainingplayers/2)
+        if (mostVotes >= votingPlayers/2)
         {
             _playersThatHaveBeenKickedList.Add(mostVotedPlayer);
-            gameController.myPV.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);
+            myPV.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);
         }
     }  
 
@@ -186,7 +206,18 @@ public class VotingManager : MonoBehaviour
                 break;
             }
         }
-        string message = actorNumber == -1 ? "No one was voted out" : playerName + " was voted out";
+        string kickMessage = actorNumber == -1 ? "No one was voted out" : playerName + " was voted out";
+        Debug.Log(kickMessage);
+        //code for kicking player or winnig the game after voting sesh
+        StartCoroutine(ShowKickedMessaged(kickMessage));
+        // PhotonNetwork.LoadLevel("WinScreen");
+    }
+
+    private IEnumerator ShowKickedMessaged(string kickMessage)
+    {
+        _kickMessage.text = kickMessage;
+        _kickWindow.SetActive(true);
+        yield return new WaitForSeconds(5);
         PhotonNetwork.LoadLevel("Game");
     }
 }
