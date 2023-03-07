@@ -11,7 +11,9 @@ public class Fov : MonoBehaviour
 
     private void Start()
     {
-        viewDistance = 4f;
+        //if we are in the game scene
+        
+        viewDistance = 4.5f;
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         //ReduceVision();
