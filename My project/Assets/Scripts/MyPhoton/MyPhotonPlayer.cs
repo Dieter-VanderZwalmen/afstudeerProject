@@ -18,15 +18,7 @@ public class MyPhotonPlayer : MonoBehaviour
     {
         myPV = GetComponent<PhotonView>();
 
-        allPlayers = PhotonNetwork.PlayerList;
-        foreach (Player p in allPlayers)
-        {
-            if (p != PhotonNetwork.LocalPlayer)
-            {
-                myNumberInRoom++;
-            }
-        }
-
+        this.myNumberInRoom = PhotonNetwork.LocalPlayer.ActorNumber;
 
         if (myPV.IsMine)
         {
