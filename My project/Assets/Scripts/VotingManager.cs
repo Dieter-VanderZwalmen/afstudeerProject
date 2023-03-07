@@ -33,7 +33,6 @@ public class VotingManager : MonoBehaviour
     private void Start()
     {
         myPV = GetComponent<PhotonView>();
-        Debug.Log("myPV in start: " + myPV);
         DeadBodyReported(AU_PlayerController.gameController.bodiesFoundActorNumber[AU_PlayerController.gameController.bodiesFoundActorNumber.Count - 1]);
     }
 
@@ -49,13 +48,13 @@ public class VotingManager : MonoBehaviour
 
     public void DeadBodyReported(int actorNumber)
     {   
-        Debug.Log("myPV deadbodyreported: " + myPV);
-        myPV.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber);
+        //myPV.RPC("RPC_DeadBodyReported", RpcTarget.All, actorNumber);
+        RPC_DeadBodyReported(actorNumber);
     }
     
-    [PunRPC]
+    //[PunRPC]
     void RPC_DeadBodyReported(int actorNumber)
-    {
+    {   
         _reportedBodiesList.Add(actorNumber);
         _playersThatHaveBeenVotedList.Clear();
         _playersThatVotedList.Clear();
@@ -80,10 +79,8 @@ public class VotingManager : MonoBehaviour
         //create the list of vote player items and write dead as status for deadplayers and toggle buttons to false for the deadplayers
         foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
-            Debug.Log("player: " + player);
             VotePlayerItem votePlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
             votePlayerItem.Initialize(this, player);
-            Debug.Log("_reportedBodiesList: " + _reportedBodiesList);
             if (_reportedBodiesList.Contains(player.ActorNumber))
             {
                 votePlayerItem.updateStatus("Dead");
@@ -118,20 +115,20 @@ public class VotingManager : MonoBehaviour
     [PunRPC]
     public void RPC_CastPlayerVote(int voterActorNumber, int votedActorNumber)
     {
-
         Debug.Log("voterActorNumber: " + voterActorNumber);
         Debug.Log("votedActorNumber: " + votedActorNumber);
 
-        int remainingplayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatVotedList.Count - _playersThatHaveBeenKickedList.Count;
-
         foreach (VotePlayerItem votePlayerItem in _playersList)
         {
-            if (votePlayerItem.GetActorNumber == votedActorNumber)
+            if (votePlayerItem.GetActorNumber == voterActorNumber)
             {
                 votePlayerItem.updateStatus("Voted");
             }
         }
-
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
         // log the player that just voted / and who voted for
         if (!_playersThatVotedList.Contains(voterActorNumber))
         {
@@ -139,11 +136,13 @@ public class VotingManager : MonoBehaviour
             _playersThatHaveBeenVotedList.Add(votedActorNumber);
         }
 
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        if (_playersThatVotedList.Count < remainingplayers)
+        Debug.Log("_allDeadBodiesList.Count: " + _reportedBodiesList.Count);
+        Debug.Log("_playersThatHaveBeenKickedList.Count: " + _playersThatHaveBeenKickedList.Count);
+        Debug.Log("photonNetwork.CurrentRoom.PlayerCount: " + PhotonNetwork.CurrentRoom.PlayerCount);
+
+        int votingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _playersThatHaveBeenKickedList.Count - _reportedBodiesList.Count;
+
+        if (_playersThatVotedList.Count < votingPlayers)
         {
             return;
         }
@@ -175,7 +174,7 @@ public class VotingManager : MonoBehaviour
         }
 
         //end voting session
-        if (mostVotes >= remainingplayers/2)
+        if (mostVotes >= votingPlayers/2)
         {
             _playersThatHaveBeenKickedList.Add(mostVotedPlayer);
             myPV.RPC("RPC_KickPlayer", RpcTarget.All, mostVotedPlayer);

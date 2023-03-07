@@ -34,7 +34,6 @@ public class VotePlayerItem : MonoBehaviour
 
     private void OnVotePressed()
     {
-        Debug.Log("_actorNumber in OnVotePressed: " + _actorNumber);
         _votingManager.CastVote(_actorNumber);
     }
 
@@ -48,13 +47,11 @@ public class VotePlayerItem : MonoBehaviour
 
     public void updateStatus(string status)
     {
-        Debug.Log("status: " + status);
         _statusText.text = status;
     }
 
     public void ToggleButton(bool isInteractable)
     {
-        Debug.Log("vote button: " + _voteButton);
         _voteButton.interactable = isInteractable;
     }
 
