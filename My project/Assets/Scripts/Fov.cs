@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Fov : MonoBehaviour
 {
@@ -12,8 +13,16 @@ public class Fov : MonoBehaviour
     private void Start()
     {
         //if we are in the game scene
-        
-        viewDistance = 4.5f;
+        if ("StartGame" == SceneManager.GetActiveScene().name)
+        {
+            Debug.Log("Fov in StartGame scene = 10");
+            viewDistance = 10f;
+        }
+        else {
+            Debug.Log("Fov in Game scene = 4.5");
+            viewDistance = 4.5f;
+            
+        }
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         //ReduceVision();
