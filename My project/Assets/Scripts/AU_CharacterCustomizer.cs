@@ -7,7 +7,7 @@ public class AU_CharacterCustomizer : MonoBehaviour
 {
     [SerializeField] Color[] allColors;
 
-    private int colorIndexNickname = 10;
+    private int colorIndexNickname = 9;
 
     public void SetColor(int colorIndex)
     {

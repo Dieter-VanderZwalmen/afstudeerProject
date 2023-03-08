@@ -23,6 +23,7 @@ public class MyPhotonPlayer : MonoBehaviour
         if (myPV.IsMine)
         {
             Debug.Log("myNumberInRoom" + myNumberInRoom);
+            Debug.Log("instantiating my player");
             myPlayerAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Player"), AU_SpawnPoints.instance.spawnPoints[myNumberInRoom].position, Quaternion.identity);
         }
     }
