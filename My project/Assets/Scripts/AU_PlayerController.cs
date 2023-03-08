@@ -31,7 +31,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
 
     float direction = 1;
     //Player Color
-    static Color myColor;
+    Color myColor;
     SpriteRenderer myAvatarSprite;
 
     //Role
@@ -114,9 +114,7 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
 
-        SetColor(Color.white);
-        SetColorAsNickname("White");
-        SetName();
+       
 
         if (!myPV.IsMine)
         {
@@ -146,8 +144,13 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             myColor = Color.white;
         myAvatarSprite.color = myColor;
 
+
+        Debug.Log("mycolor: " + myColor);
         if (sceneName == "StartGame")
         {
+            SetColor(Color.white);
+            SetColorAsNickname("White");
+            SetName();
             myCamera.gameObject.SetActive(false);
         }
 
@@ -435,12 +438,14 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             stream.SendNext(direction);
             stream.SendNext(isImposter);
             stream.SendNext(isDead);
+            stream.SendNext(myColor);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
             this.isImposter = (bool)stream.ReceiveNext();
             this.isDead = (bool)stream.ReceiveNext();
+            this.myColor = (Color)stream.ReceiveNext();
         }
     }
 
