@@ -160,6 +160,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        //setName(this.nickName)
+        SetColorAsNickname(this.nickName);
+
+
         myAvatar.localScale = new Vector2(direction, 1);
 
         if (!myPV.IsMine)
