@@ -337,6 +337,9 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAnim.SetBool("IsDead", isDead);
         gameObject.layer = 9;
         myCollider.enabled = false;
+        Camera camera = myPV.gameObject.transform.GetChild(1).GetComponent<Camera>();
+        camera.cullingMask |= LayerMask.GetMask("Ghost");
+        
     }
 
     void BodySearch()
