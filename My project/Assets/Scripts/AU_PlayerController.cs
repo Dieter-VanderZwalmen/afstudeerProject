@@ -339,6 +339,10 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAnim.SetBool("IsDead", isDead);
         gameObject.layer = 9;
         myCollider.enabled = false;
+
+        Camera camera = myPV.gameObject.transform.GetChild(1).GetComponent<Camera>();
+        camera.cullingMask |= LayerMask.GetMask("Ghost");
+
     }
 
     void BodySearch()
@@ -438,14 +442,14 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             stream.SendNext(direction);
             stream.SendNext(isImposter);
             stream.SendNext(isDead);
-            stream.SendNext(myColor);
+            //stream.SendNext(myColor);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
             this.isImposter = (bool)stream.ReceiveNext();
             this.isDead = (bool)stream.ReceiveNext();
-            this.myColor = (Color)stream.ReceiveNext();
+            //this.myColor = (Color)stream.ReceiveNext();
         }
     }
 
