@@ -114,8 +114,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAvatar = transform.GetChild(0);
         myAvatarSprite = myAvatar.GetComponent<SpriteRenderer>();
 
-       
-
         if (!myPV.IsMine)
         {
             //disable child object named fov
@@ -140,17 +138,17 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             //myLightCaster.enabled = false;
             return;
         }
+
         if (myColor == Color.clear)
-            myColor = Color.white;
-        myAvatarSprite.color = myColor;
-
-
-        Debug.Log("mycolor: " + myColor);
-        if (sceneName == "StartGame")
         {
             SetColor(Color.white);
             SetColorAsNickname("White");
-            SetName();
+        }
+
+        Debug.Log("mycolor: " + myColor);
+
+        if (sceneName == "StartGame")
+        {
             myCamera.gameObject.SetActive(false);
         }
 
@@ -339,10 +337,6 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myAnim.SetBool("IsDead", isDead);
         gameObject.layer = 9;
         myCollider.enabled = false;
-
-        Camera camera = myPV.gameObject.transform.GetChild(1).GetComponent<Camera>();
-        camera.cullingMask |= LayerMask.GetMask("Ghost");
-
     }
 
     void BodySearch()
@@ -442,14 +436,12 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             stream.SendNext(direction);
             stream.SendNext(isImposter);
             stream.SendNext(isDead);
-            //stream.SendNext(myColor);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
             this.isImposter = (bool)stream.ReceiveNext();
             this.isDead = (bool)stream.ReceiveNext();
-            //this.myColor = (Color)stream.ReceiveNext();
         }
     }
 

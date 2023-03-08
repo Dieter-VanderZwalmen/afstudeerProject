@@ -18,19 +18,12 @@ public class MyPhotonPlayer : MonoBehaviour
     {
         myPV = GetComponent<PhotonView>();
 
-        allPlayers = PhotonNetwork.PlayerList;
-        foreach (Player p in allPlayers)
-        {
-            if (p != PhotonNetwork.LocalPlayer)
-            {
-                myNumberInRoom++;
-            }
-        }
-
+        this.myNumberInRoom = PhotonNetwork.LocalPlayer.ActorNumber;
 
         if (myPV.IsMine)
         {
             Debug.Log("myNumberInRoom" + myNumberInRoom);
+            Debug.Log("instantiating my player");
             myPlayerAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "AU_Player"), AU_SpawnPoints.instance.spawnPoints[myNumberInRoom].position, Quaternion.identity);
         }
     }
