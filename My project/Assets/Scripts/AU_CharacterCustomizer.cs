@@ -17,46 +17,42 @@ public class AU_CharacterCustomizer : MonoBehaviour
     }
 
     public void SetColorAsNickname()
-    {   
-        if (colorIndexNickname == 0)
+    {
+        string colorName = "";
+        switch (colorIndexNickname)
         {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Roos");
+            case 0:
+                colorName = "Roos";
+                break;
+            case 1:
+                colorName = "Donker blauw";
+                break;
+            case 2:
+                colorName = "Rood";
+                break;
+            case 3:
+                colorName = "Groen";
+                break;
+            case 4:
+                colorName = "Geel";
+                break;
+            case 5:
+                colorName = "Zwart";
+                break;
+            case 6:
+                colorName = "Licht blauw";
+                break;
+            case 7:
+                colorName = "Bruin";
+                break;
+            case 8:
+                colorName = "Oranje";
+                break;
+            default:
+                colorName = "Wit";
+                break;
         }
-        else if (colorIndexNickname == 1)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Donker blauw");
-        }
-        else if (colorIndexNickname == 2)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Rood");
-        }
-        else if (colorIndexNickname == 3)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Groen");
-        }
-        else if (colorIndexNickname == 4)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Geel");
-        }
-        else if (colorIndexNickname == 5)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Zwart");
-        }
-        else if (colorIndexNickname == 6)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Licht blauw");
-        }
-        else if (colorIndexNickname == 7)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Bruin");
-        }
-        else if (colorIndexNickname == 8)
-        {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Oranje");
-        }
-        else {
-            AU_PlayerController.localPlayer.SetColorAsNickname("Wit");
-        }
+        AU_PlayerController.localPlayer.SetColorAsNickname(colorName);
     }
 
     public void NextScene(int sceneIndex)
