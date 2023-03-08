@@ -339,7 +339,15 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
         myCollider.enabled = false;
         Camera camera = myPV.gameObject.transform.GetChild(1).GetComponent<Camera>();
         camera.cullingMask |= LayerMask.GetMask("Ghost");
+
+        //sent a message to the master client that makes the layers of player to Ghost
+        //myPV.gameObject.transform.GetChild(0) to layer Ghost
+        //myPV.gameObject.transform.GetChild(2) to layer Ghost
+        //myPV.gameObject.transform.GetChild(0).GetChild(0) to layer Ghost 
         
+
+
+
     }
 
     void BodySearch()
@@ -439,12 +447,14 @@ public class AU_PlayerController : MonoBehaviour, IPunObservable
             stream.SendNext(direction);
             stream.SendNext(isImposter);
             stream.SendNext(isDead);
+            stream.SendNext(nickName);
         }
         else
         {
             direction = (float)stream.ReceiveNext();
             this.isImposter = (bool)stream.ReceiveNext();
             this.isDead = (bool)stream.ReceiveNext();
+            this.nickName = (string)stream.ReceiveNext();
         }
     }
 
